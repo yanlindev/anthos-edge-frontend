@@ -1,0 +1,11 @@
+@import '../../scss/variables.scss';
+
+.map {
+  background: $grey_map;
+  height: calc(100vh - 64px);
+  left: 0;
+  position: fixed;
+  top: 64px;
+  width: 100vw;
+  z-index: -1;
+}

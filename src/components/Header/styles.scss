@@ -1,0 +1,15 @@
+@import '../../scss/variables.scss';
+
+.header {
+  align-items: center;
+  background: $white;
+  display: flex;
+  font-family: 'sans-medium';
+  font-size: 20px;
+  padding: 5px;
+  border-bottom: $grey_light 1px solid;
+
+  &__logo {
+    width: 100px;
+  }
+}

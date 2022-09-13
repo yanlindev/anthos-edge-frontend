@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import Map from './components/Map';
+import FleetList from './components/FleetList';
+import FleetMetrics from './components/FleetMetrics';
+import './scss/main.scss';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Map />
+      <div className='main'>
+        <Sidebar />
+        <FleetList />
+        <FleetMetrics />
+      </div>
     </div>
   );
 }
