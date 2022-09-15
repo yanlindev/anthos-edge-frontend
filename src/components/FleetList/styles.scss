@@ -1,5 +1,30 @@
+@import '../../scss/variables.scss';
+
 .fleet-list {
   background: white;
-  margin: 35% 25px 0 0;
-  padding: 20px;
+  margin: 55vh 20px 0 0;
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-family: 'sans-medium';
+    font-size: 16px;
+    padding: 25px 50px;
+
+    .icon {
+      width: 16px;
+    }
+
+    .text {
+      margin-left: 10px;
+    }
+  }
+
+  &__subtitle {
+    border-bottom: 1px solid $grey_light;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 50px 22px;
+  }
 }

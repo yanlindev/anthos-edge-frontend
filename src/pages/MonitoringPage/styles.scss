@@ -3,5 +3,14 @@
 .monitoring-page {
   background: $grey_map;
   display: flex;
+  padding: 0 20px;
   width: 100%;
+
+  .fleet-list {
+    flex-basis: 30%;
+  }
+
+  .fleet-metrics {
+    flex-basis: 70%;
+  }
 }
