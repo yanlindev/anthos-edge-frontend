@@ -10,6 +10,18 @@
   padding: 5px 20px;
   border-bottom: $grey_light 1px solid;
 
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:active,
+    &:focus,
+    &:visited {
+      color: black;
+      text-decoration: none;
+    }
+  }
+
   &__logo {
     margin-right: 20px;
     width: 40px;
