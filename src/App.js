@@ -1,21 +1,37 @@
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import Map from './components/Map';
-import FleetList from './components/FleetList';
-import FleetMetrics from './components/FleetMetrics';
+import MonitoringPage from './pages/MonitoringPage';
+import ControlPage from './pages/ControlPage';
+import WorkloadPage from './pages/Workload';
 import './scss/main.scss';
 
 const App = () => {
   return (
-    <div className="App">
+    <Router>
       <Header />
-      <Map />
-      <div className='main'>
+      <div className="App__main">
         <Sidebar />
-        <FleetList />
-        <FleetMetrics />
+        <Switch>
+          <Redirect exact from="/" to="/monitoring" />
+          <Route path="/monitoring">
+            <MonitoringPage />
+          </Route>
+          <Route path="/control">
+            <ControlPage />
+          </Route>
+          <Route path="/workload">
+            <WorkloadPage />
+          </Route>
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 

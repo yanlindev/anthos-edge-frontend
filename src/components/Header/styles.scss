@@ -5,11 +5,13 @@
   background: $white;
   display: flex;
   font-family: 'sans-medium';
-  font-size: 20px;
-  padding: 5px;
+  font-size: 18px;
+  height: 53px;
+  padding: 5px 20px;
   border-bottom: $grey_light 1px solid;
 
   &__logo {
-    width: 100px;
+    margin-right: 20px;
+    width: 40px;
   }
 }

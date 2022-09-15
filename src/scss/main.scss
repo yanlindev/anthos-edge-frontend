@@ -1,14 +1,16 @@
+@import './reset.scss';
 @import './typography.scss';
 
 html,
 body {
   font-family: 'sans-regular';
+  font-size: 14px;
   margin: 0;
   padding: 0;
 }
 
 .App {
-  .main {
+  &__main {
     display: flex;
   }
 }
