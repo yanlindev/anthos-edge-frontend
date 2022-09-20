@@ -1,0 +1,47 @@
+@import '../../scss/variables.scss';
+
+.acm {
+  background: $white;
+  border: $grey_light 1px solid;
+  border-radius: 8px;
+  position: relative;
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-family: 'sans-medium';
+    font-size: 16px;
+    padding: 25px 20px 10px;
+
+    .icon {
+      width: 16px;
+    }
+
+    .text {
+      margin-left: 10px;
+    }
+  }
+
+  &__subtitle {
+    border-bottom: $grey_light 1px solid;
+    color: #a9adb2;
+    font-size: 13px;
+    padding: 0 0 25px 45px;
+  }
+
+  &__confirm {
+    align-items: center;
+    border-top: 1px $grey_light solid;
+    bottom: 0;
+    display: flex;
+    justify-content: end;
+    left: 0;
+    padding: 20px;
+    right: 0;
+    position: absolute;
+
+    &__button {
+      margin-left: 30px;
+    }
+  }
+}

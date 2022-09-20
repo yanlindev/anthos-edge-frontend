@@ -4,13 +4,13 @@
   background: white;
   border-right: $grey_light 1px solid;
   color: $grey;
+  flex: 0 0 74px;
   font-family: 'sans-medium';
   height: calc(100vh - 64px);
   overflow: hidden;
-  padding: 0 25px 0 0;
   position: relative;
-  transition: width .3s ease-in-out;
-  width: 52px;
+  transition: flex .3s ease-in-out;
+  will-change: flex;
 
   ul {
     margin-top: 15px;
@@ -112,13 +112,13 @@
   }
 
   &:hover {
-    width: 182px;
+    flex: 0 0 182px;
 
     .sidebar__link {
       &::after {
         border-radius: 6px;
         left: 8px;
-        width: 100%;
+        width: calc(100% - 8px);
       }
     }
   }
