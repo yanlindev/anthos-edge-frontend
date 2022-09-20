@@ -1,16 +1,21 @@
 @import '../../scss/variables.scss';
 
 .monitoring-page {
-  background: $grey_map;
-  display: flex;
-  padding: 0 20px;
+  background: $grey_bg;
+  padding: 20px 20px 0;
   width: 100%;
 
-  .fleet-list {
-    flex-basis: 30%;
-  }
+  &__panel {
+    display: flex;
+    margin-top: 20px;
 
-  .fleet-metrics {
-    flex-basis: 70%;
+    .fleet-list {
+      flex-basis: 30%;
+      margin-right: 20px;
+    }
+  
+    .fleet-metrics {
+      flex-basis: 70%;
+    }
   }
 }

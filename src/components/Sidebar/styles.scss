@@ -2,6 +2,7 @@
 
 .sidebar {
   background: white;
+  border-right: $grey_light 1px solid;
   color: $grey;
   font-family: 'sans-medium';
   height: calc(100vh - 64px);
@@ -22,10 +23,6 @@
     svg {
       padding: 1px;
       width: 20px;
-
-      // &:first-of-type {
-      //   width: 20px;
-      // }
     }
 
     a {
@@ -39,9 +36,23 @@
       }
 
       &:hover {
+        &::before {
+          visibility: hidden;
+        }
+
         &::after {
           opacity: .35;
         }
+      }
+
+      &::before {
+        background: $blue;
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        visibility: hidden;
+        width: 3px;
       }
 
       &:after {
@@ -73,6 +84,10 @@
           circle {
             fill: $blue;
           }
+        }
+
+        &::before {
+          visibility: visible;
         }
 
         &::after {

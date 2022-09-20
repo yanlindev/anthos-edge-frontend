@@ -1,5 +1,24 @@
+@import '../../scss/variables.scss';
+
 .fleet-metrics {
   background: white;
-  margin: 55vh 0 0;
-  padding: 20px;
+  border: $grey_light 1px solid;
+  border-radius: 8px;
+  // padding: 20px;
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-family: 'sans-medium';
+    font-size: 16px;
+    padding: 25px 50px;
+
+    .icon {
+      width: 16px;
+    }
+
+    .text {
+      margin-left: 10px;
+    }
+  }
 }

@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
-import sidebarIcon_1 from '../../assets/images/sidebar-1.svg';
-import sidebarIcon_2 from '../../assets/images/sidebar-2.svg';
-import sidebarIcon_3 from '../../assets/images/sidebar-3.svg';
 import Sidebar1 from '../svg/Sidebar1';
 import Sidebar2 from '../svg/Sidebar2';
 import Sidebar3 from '../svg/Sidebar3';

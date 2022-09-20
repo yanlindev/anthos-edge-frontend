@@ -2,7 +2,9 @@
 
 .fleet-list {
   background: white;
-  margin: 55vh 20px 0 0;
+  border: $grey_light 1px solid;
+  border-radius: 8px;
+  // margin: 55vh 20px 0 0;
 
   &__title {
     align-items: center;
