@@ -1,0 +1,22 @@
+@import '../../scss/variables.scss';
+
+.modal {
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 999;
+
+  &__inner {
+    background: white;
+    border: $grey_light 1px solid;
+    border-radius: 8px;
+    height: 75vh;
+    margin: auto;
+    overflow: hidden;
+    width: 50vw;
+  }
+}

@@ -12,7 +12,7 @@ const FleetList = () => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
     .then(function (response) {
       // handle success
-      console.log(response.data.length);
+      console.log(response);
       setTimeout(() => {
         setFleetData(response.data);
       }, 500);
@@ -28,6 +28,7 @@ const FleetList = () => {
       <div className='fleet-list__title'>
         <img className='icon' src={fleetInfoIcon} />
         <div className='text'>Fleet Information</div>
+        <div className='label'>{fleetData.length}</div>
       </div>
 
       <table className='fleet-list__inner'>

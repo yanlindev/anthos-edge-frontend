@@ -4,6 +4,7 @@
   background: white;
   border: $grey_light 1px solid;
   border-radius: 8px;
+  overflow: hidden;
 
   &__title {
     align-items: center;
@@ -18,6 +19,15 @@
 
     .text {
       margin-left: 10px;
+    }
+
+    .label {
+      background: #E0E5F9;
+      border-radius: 40px;
+      color: $blue;
+      font-size: 12px;
+      margin-left: 15px;
+      padding: 5px 15px;
     }
   }
 
