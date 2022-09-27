@@ -9,10 +9,15 @@ import './styles.scss';
 const Map = props => {
   return (
     <div className='map'>
-      <div className='map__label'>
-        <img className='map__label__icon' src={map_cursor} />
-        <div className='map__label__text'>click store to view details</div>
-      </div>
+      {
+        props.label ?
+        <div className='map__label'>
+          <img className='map__label__icon' src={map_cursor} />
+          <div className='map__label__text'>click store to view details</div>
+        </div> :
+        null
+      }
+
       {
         props.buttons ?
         props.buttons.map(data =>

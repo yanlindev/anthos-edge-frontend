@@ -25,6 +25,7 @@ const MonitoringPage = () => {
   return (
     <div className='monitoring-page'>
       <Map
+        label='true'
         buttons={fleetData}
         handleButtonClick={handleOpenModal}
       />
