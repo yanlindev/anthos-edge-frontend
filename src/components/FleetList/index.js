@@ -9,7 +9,7 @@ const FleetList = () => {
   const [fleetData, setFleetData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
       // handle success
       console.log(response);

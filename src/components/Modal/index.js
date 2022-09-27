@@ -6,6 +6,9 @@ const Modal = props => {
   return (
     <div className='modal'>
       <div className='modal__inner'>
+        <div className='header'>
+          
+        </div>
         <img
           src={close_icon}
           onClick={props.handleClose}

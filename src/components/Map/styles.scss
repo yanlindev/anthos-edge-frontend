@@ -8,6 +8,25 @@
   display: flex;
   height: 50vh;
   justify-content: center;
+  position: relative;
+
+  &__label {
+    align-items: center;
+    background: #EEEFF6;
+    border-radius: 50px;
+    color: #40414B;
+    display: flex;
+    left: 22px;
+    justify-content: center;
+    padding: 16px 24px;
+    position: absolute;
+    top: 22px;
+
+    &__icon {
+      margin-right: 8px;
+      width: 16px;
+    }
+  }
 
   .lazy-load-image-loaded {
     height: 85%;

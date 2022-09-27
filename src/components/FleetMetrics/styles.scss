@@ -4,6 +4,7 @@
   background: white;
   border: $grey_light 1px solid;
   border-radius: 8px;
+  height: 40vh;
   // padding: 20px;
 
   &__title {
@@ -20,5 +21,9 @@
     .text {
       margin-left: 10px;
     }
+  }
+
+  &__iframe {
+    width: 100%;
   }
 }
