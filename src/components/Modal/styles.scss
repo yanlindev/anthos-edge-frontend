@@ -11,12 +11,129 @@
   z-index: 999;
 
   &__inner {
-    background: white;
+    background: $white;
     border: $grey_light 1px solid;
     border-radius: 8px;
     height: 75vh;
     margin: auto;
     overflow: hidden;
-    width: 50vw;
+    width: 680px;
+
+    &__close {
+      cursor: pointer;
+    }
+
+    &__header {
+      align-items: center;
+      display: flex;
+      font-family: "sans-medium";
+      font-size: 20px;
+      height: 53px;
+      justify-content: space-between;
+      padding: 8px 26px;
+      border-bottom: #DADCE0 1px solid;
+
+      .title {
+        align-items: center;
+        display: flex;
+
+        img {
+          margin-right: 14px;
+          width: 28px;
+        }
+      }
+    }
+
+    &__content {
+      padding: 30px;
+
+      // nodes
+      &__nodes {
+        border: $grey_light 1px solid;
+        border-radius: 8px;
+        overflow: hidden;
+
+        &__header {
+          background: #F7F9FC;
+          font-family: 'sans-medium';
+          padding: 16px;
+        }
+
+        &__row {
+          align-items: center;
+          border-top: $grey_light 1px solid;
+          display: flex;
+          justify-content: space-between;
+          padding: 14px 40px;
+
+          .row-status {
+            background: rgba(#5E9EFE, .15);
+            border-radius: 45px;
+            color: #5E81FE;
+            font-size: 12px;
+            padding: 6px 12px;
+          }
+
+          .row-button {
+            background: #FE6B5E;
+            border-radius: 45px;
+            color: $white;
+            cursor: pointer;
+            font-family: 'sans-medium';
+            font-size: 12px;
+            padding: 10px 20px;
+            transition: opacity .15s ease-in-out;
+
+            &:hover {
+              opacity: .85;
+            }
+          }
+        }
+      }
+
+      // dashboard
+      &__dashboard {
+        border: $grey_light 1px solid;
+        border-radius: 8px;
+        margin-top: 40px;
+        overflow: hidden;
+
+        &__header {
+          background: #F7F9FC;
+          font-family: 'sans-medium';
+          padding: 16px;
+        }
+
+        iframe {
+          width: 100%;
+
+          html, body, div {
+            background: #e97c7c !important;
+          }
+        }
+      }
+
+      // logs
+      &__logs {
+        border: $grey_light 1px solid;
+        border-radius: 8px;
+        margin-top: 40px;
+        overflow: hidden;
+
+        &__header {
+          background: #F7F9FC;
+          font-family: 'sans-medium';
+          padding: 16px;
+        }
+
+        iframe {
+          width: 100%;
+
+          html, body, div {
+            background: #e97c7c !important;
+          }
+        }
+      }
+    }
   }
 }
