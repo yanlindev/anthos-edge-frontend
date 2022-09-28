@@ -31,6 +31,7 @@ const FleetList = () => {
         <div className='label'>{fleetData.length}</div>
       </div>
 
+      <div className='table-wrapper'>
       <table className='fleet-list__inner'>
         <tr>
           <th>Name</th>
@@ -53,6 +54,7 @@ const FleetList = () => {
           </SkeletonTheme>
         }
       </table>
+      </div>
     </div>
   )
 }

@@ -28,11 +28,62 @@
     }
   }
 
+  &__map {
+    height: 103%;
+    margin-top: 7%;
+    position: relative;
+    user-select: none;
+  }
+
   .lazy-load-image-loaded {
-    height: 85%;
+    height: 100%;
 
     img {
       height: 100%;
+      pointer-events: none;
     }
+  }
+}
+
+.test {
+  width: 6px;
+  height: 6px;
+  background: red;
+  position: absolute;
+  // top: 36%;
+  // left: 83%;
+  z-index: 2;
+}
+
+.map-button {
+  align-items: center;
+  background: $blue;
+  border-radius: 50px;
+  color: $white;
+  cursor: pointer;
+  display: flex;
+  font-family: 'sans-medium';
+  font-size: 12px;
+  justify-content: center;
+  opacity: 0;
+  padding: 8px 18px 8px 10px;
+  position: absolute;
+  transition: opacity .3s ease-in-out .3s;
+  z-index: 1;
+  left: 16.6%;
+  top: 29.4%;
+
+  &:hover {
+    opacity: .9;
+  }
+
+  img {
+    height: 100%;
+    margin-right: 8px;
+    width: 22px;
+  }
+
+  &--loaded {
+    opacity: 1;
   }
 }

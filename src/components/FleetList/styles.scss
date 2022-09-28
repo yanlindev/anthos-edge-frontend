@@ -9,8 +9,8 @@
   &__title {
     align-items: center;
     display: flex;
-    font-family: 'sans-medium';
-    font-size: 16px;
+    // font-family: 'sans-medium';
+    font-size: 18px;
     padding: 25px 35px;
 
     .icon {
@@ -37,6 +37,12 @@
     justify-content: space-between;
     margin-top: 10px;
     padding: 0 50px 22px;
+  }
+
+  .table-wrapper {
+    height: 400px;
+    overflow: hidden;
+    overflow-y: scroll;
   }
 
   &__inner {
