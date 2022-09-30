@@ -4,6 +4,7 @@
   background: white;
   border: $grey_light 1px solid;
   border-radius: 8px;
+  height: 40vh;
   overflow: hidden;
 
   &__title {
@@ -59,7 +60,7 @@
     }
 
     td {
-      padding: 20px 8px;
+      padding: 18px 8px;
     }
 
     th {
@@ -68,6 +69,8 @@
     }
 
     tr {
+      // opacity: .7;
+
       td, th {
         &:first-of-type {
           padding-left: 35px;

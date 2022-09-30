@@ -2,16 +2,16 @@
 
 .monitoring-page {
   background: $grey_bg;
-  padding: 20px 20px 0;
+  padding: 12px 12px 0;
   width: 100%;
 
   &__panel {
     display: flex;
-    margin-top: 20px;
+    margin-top: 12px;
 
     .fleet-list {
       flex-basis: 35%;
-      margin-right: 20px;
+      margin-right: 12px;
     }
   
     .fleet-metrics {

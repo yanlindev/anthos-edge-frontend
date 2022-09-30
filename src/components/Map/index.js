@@ -90,17 +90,17 @@ const Map = props => {
             // const {lat, lng} = getCoordinate(cluster.lat_long);
             // console.log(parseFloat(lat), lng)
             return (
-              // <div
-              //   className='test'
-              //   style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
-              // >
-              //   {/* {cluster.name} */}
-              // </div>
-              <div key={cluster.name} onClick={props.handleButtonClick} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
-                <MapButton
-                  text={`Store${index}`}
-                />
+              <div
+                className='test'
+                style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
+              >
+                {/* {cluster.name} */}
               </div>
+              // <div key={cluster.name} onClick={props.handleButtonClick} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
+              //   <MapButton
+              //     text={`Store${index}`}
+              //   />
+              // </div>
             )
           })
         }
