@@ -8,6 +8,7 @@
   display: flex;
   height: 50vh;
   justify-content: center;
+  overflow: hidden;
   position: relative;
 
   &__label {
@@ -29,8 +30,8 @@
   }
 
   &__map {
-    height: 103%;
-    margin-top: 7%;
+    height: 127%;
+    margin-top: 9%;
     position: relative;
     user-select: none;
   }
@@ -46,12 +47,14 @@
 }
 
 .test {
-  width: 6px;
-  height: 6px;
-  background: red;
+  border-radius: 50px;
+  width: 14px;
+  height: 14px;
+  background: $blue;
   position: absolute;
   // top: 36%;
   // left: 83%;
+  font-size: 8px;
   z-index: 2;
 }
 
@@ -70,11 +73,12 @@
   position: absolute;
   transition: opacity .3s ease-in-out .3s;
   z-index: 1;
-  left: 16.6%;
-  top: 29.4%;
+  // left: 16.6%;
+  // top: 29.4%;
 
   &:hover {
     opacity: .9;
+    z-index: 2;
   }
 
   img {

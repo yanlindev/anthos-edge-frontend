@@ -9,8 +9,8 @@
   height: calc(100vh - 64px);
   overflow: hidden;
   position: relative;
-  transition: flex .3s ease-in-out;
-  will-change: flex;
+  transition: all .3s ease-in-out;
+  // will-change: flex;
 
   ul {
     margin-top: 15px;

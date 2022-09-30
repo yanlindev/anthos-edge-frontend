@@ -51,7 +51,7 @@ const Map = props => {
     const lat = lat_long.latitude;
     const lng = lat_long.longitude;
     return {
-      lat: lat.replace(/\s/g,'.').slice(0, -2),
+      lat: lat.charAt(lng.length - 1) === ('S' || 's') ? ('-' + lat.replace(/\s/g,'.').slice(0, -2)) : lat.replace(/\s/g,'.').slice(0, -2),
       lng: lng.charAt(lng.length - 1) === ('W' || 'w') ? ('-' + lng.replace(/\s/g,'.').slice(0, -2)) : lng.replace(/\s/g,'.').slice(0, -2)
     }
   }
@@ -84,13 +84,23 @@ const Map = props => {
           null
         } */}
         {
-          data.map(cluster => {
+          data.map((cluster, index) => {
             const lat = parseFloat(getCoordinate(cluster.lat_long).lat);
             const lng = parseFloat(getCoordinate(cluster.lat_long).lng);
             // const {lat, lng} = getCoordinate(cluster.lat_long);
-            console.log(parseFloat(lat), lng)
+            // console.log(parseFloat(lat), lng)
             return (
-              <div className='test' style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}></div>
+              // <div
+              //   className='test'
+              //   style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
+              // >
+              //   {/* {cluster.name} */}
+              // </div>
+              <div key={cluster.name} onClick={props.handleButtonClick} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
+                <MapButton
+                  text={`Store${index}`}
+                />
+              </div>
             )
           })
         }
