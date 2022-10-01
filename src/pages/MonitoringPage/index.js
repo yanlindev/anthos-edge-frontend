@@ -1,18 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles.scss';
 import FleetList from '../../components/FleetList';
 import FleetMetrics from '../../components/FleetMetrics';
 import Map from '../../components/Map';
 import Modal from '../../components/Modal';
-
-const fleetData = [
-  {
-    name: 'Store 01'
-  }
-]
+import axios from 'axios';
 
 const MonitoringPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [data, setDate] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    .then(function (response) {
+      // handle success
+      setDate(response.data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }, [])
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -26,11 +34,12 @@ const MonitoringPage = () => {
     <div className='monitoring-page'>
       <Map
         // label='true'
-        buttons={fleetData}
+        // buttons={fleetData}
+        data={data}
         handleButtonClick={handleOpenModal}
       />
       <div className='monitoring-page__panel'>
-        <FleetList />
+        <FleetList data={data} />
         <FleetMetrics />
       </div>
       {

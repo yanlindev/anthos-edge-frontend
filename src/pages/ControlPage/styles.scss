@@ -2,20 +2,26 @@
 
 .control-page {
   background: $grey_bg;
-  padding: 20px 20px 0;
+  padding: 12px 12px 0;
   width: 100%;
+
+  .map {
+    &__map {
+      height: 100%;
+    }
+  }
 
   &__first-row {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 
     .map {
       flex-basis: 65%;
-      margin-right: 20px;
+      margin-right: 12px;
     }
 
     .acm {
-      flex-basis: calc(35% - 20px);
+      flex-basis: calc(35% - 12px);
     }
   }
 }

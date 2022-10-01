@@ -6,45 +6,31 @@ import map_svg from '../../assets/images/map-4.svg';
 import map from '../../assets/images/map-3.jpg';
 import MapButton from './MapButton';
 import './styles.scss';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Map = props => {
+  const mapData = props.data;
   const [mapHeight, setMapHeight] = useState(0);
   const [mapWidth, setMapWidth] = useState(0);
   const [data, setData] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
-  }, []);
-
-  // useEffect(() => {
-  //   // getCoordinate(data[0].lat_long.latitude)
-  // }, [isInViewport]);
+    // getCoordinate(data[0].lat_long.latitude)
+    // console.log(mapWidth, mapHeight)
+    setTimeout(() => {
+      setData(mapData);
+    }, 2000);
+  }, [mapWidth, mapHeight]);
 
   useEffect(() => {
-    // getCoordinate(data[0].lat_long.latitude)
-    console.log(mapWidth, mapHeight)
-    setTimeout(() => {
-      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
-      .then(function (response) {
-        // handle success
-        // console.log(response.data[0].lat_long)
-        console.log(getCoordinate(response.data[0].lat_long))
-        setData(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-    }, 1000);
-  }, [mapWidth, mapHeight]);
+    console.log(data)
+  }, data)
 
   const handleImageLoad = () => {
     // setMapHeight(ref.current.clientHeight);
-    setTimeout(() => {
-      setMapHeight(ref.current.offsetHeight);
-      setMapWidth(ref.current.offsetWidth);
-    }, 1000);
+    setMapHeight(ref.current.offsetHeight);
+    setMapWidth(ref.current.offsetWidth);
   }
 
   const getCoordinate = lat_long => {
@@ -90,17 +76,21 @@ const Map = props => {
             // const {lat, lng} = getCoordinate(cluster.lat_long);
             // console.log(parseFloat(lat), lng)
             return (
-              <div
-                className='test'
-                style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
-              >
-                {/* {cluster.name} */}
-              </div>
-              // <div key={cluster.name} onClick={props.handleButtonClick} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
-              //   <MapButton
-              //     text={`Store${index}`}
-              //   />
+              // <div
+              //   className='test'
+              //   style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
+              // >
+              //   {/* {cluster.name} */}
               // </div>
+              <div className='map__map__dot' key={cluster.name} onClick={props.handleButtonClick} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
+                <MapButton
+                  text={`Store${index}`}
+                  data={cluster}
+                />
+                <div className='map__map__dot-info'>
+                  {/* {`Store${index}`} */}
+                </div>
+              </div>
             )
           })
         }
