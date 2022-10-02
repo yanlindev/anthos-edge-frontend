@@ -7,15 +7,18 @@
 
   &__panel {
     display: flex;
+    height: calc(50vh - 100px);
     margin-top: 12px;
 
     .fleet-list {
-      flex-basis: 35%;
+      flex-basis: 38%;
+      height: 100%;
       margin-right: 12px;
     }
   
     .fleet-metrics {
-      flex-basis: 65%;
+      flex-basis: 62%;
+      height: 100%;
     }
   }
 }

@@ -3,10 +3,10 @@
 .sidebar {
   background: white;
   border-right: $grey_light 1px solid;
-  color: $grey;
+  // color: $grey;
   flex: 0 0 168px;
-  font-family: 'sans-medium';
-  height: calc(100vh - 64px);
+  // font-family: 'sans-medium';
+  height: calc(100vh - 54px);
   overflow: hidden;
   position: relative;
   transition: all .3s ease-in-out;
@@ -32,7 +32,7 @@
       &:active,
       &:focus,
       &:visited {
-        color: $grey;
+        color: $black;
       }
 
       &:hover {

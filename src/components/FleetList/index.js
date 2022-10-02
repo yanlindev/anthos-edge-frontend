@@ -24,10 +24,10 @@ const FleetList = props => {
         </thead>
         {
           props.data.length > 0 ?
-          props.data.map(data => (
+          props.data.map((data, index) => (
             <tbody>
               <tr>
-                <td>{data.location}</td>
+                <td>{data.location} {index+1}</td>
                 <td>{data.node_count}</td>
                 <td>{data.version}</td>
               </tr>

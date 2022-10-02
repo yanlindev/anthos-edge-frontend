@@ -15,5 +15,6 @@ body {
 .App {
   &__main {
     display: flex;
+    height: calc(100vh - 58px);
   }
 }

@@ -3,10 +3,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
 import map_svg from '../../assets/images/map-4.svg';
-import map from '../../assets/images/map-3.jpg';
 import MapButton from './MapButton';
 import './styles.scss';
-// import axios from 'axios';
 
 const Map = props => {
   const mapData = props.data;
@@ -16,11 +14,10 @@ const Map = props => {
   const ref = useRef(null);
 
   useEffect(() => {
-    // getCoordinate(data[0].lat_long.latitude)
-    // console.log(mapWidth, mapHeight)
     setTimeout(() => {
+      console.log(mapWidth)
       setData(mapData);
-    }, 2000);
+    }, 1000);
   }, [mapWidth, mapHeight]);
 
   useEffect(() => {
@@ -28,9 +25,10 @@ const Map = props => {
   }, data)
 
   const handleImageLoad = () => {
-    // setMapHeight(ref.current.clientHeight);
-    setMapHeight(ref.current.offsetHeight);
-    setMapWidth(ref.current.offsetWidth);
+    setTimeout(() => {
+      setMapHeight(ref.current.offsetHeight);
+      setMapWidth(ref.current.offsetWidth);
+    }, 500);
   }
 
   const getCoordinate = lat_long => {
@@ -58,31 +56,12 @@ const Map = props => {
         ref={ref}
         onLoad={handleImageLoad}
       >
-        {/* {
-          props.buttons ?
-          props.buttons.map(data =>
-          <div key={data.name} onClick={props.handleButtonClick}>
-            <MapButton
-              text={data.name}
-            />
-          </div>
-          ) :
-          null
-        } */}
         {
           data.map((cluster, index) => {
             const lat = parseFloat(getCoordinate(cluster.lat_long).lat);
             const lng = parseFloat(getCoordinate(cluster.lat_long).lng);
-            // const {lat, lng} = getCoordinate(cluster.lat_long);
-            // console.log(parseFloat(lat), lng)
             return (
-              // <div
-              //   className='test'
-              //   style={{left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
-              // >
-              //   {/* {cluster.name} */}
-              // </div>
-              <div className='map__map__dot' key={cluster.name} onClick={props.handleButtonClick} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
+              <div className='map__map__dot' key={cluster.name} onClick={props.handleButtonClick ? props.handleButtonClick : null} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
                 <MapButton
                   text={`Store${index}`}
                   data={cluster}
@@ -122,26 +101,4 @@ function latLonToOffsets(latitude, longitude, mapWidth, mapHeight) {
 
 function degreesToRadians(degrees) {
   return (degrees * Math.PI) / 180;
-}
-
-function useIsInViewport(ref) {
-  const [isIntersecting, setIsIntersecting] = useState(false);
-
-  const observer = useMemo(
-    () =>
-      new IntersectionObserver(([entry]) =>
-        setIsIntersecting(entry.isIntersecting),
-      ),
-    [],
-  );
-
-  useEffect(() => {
-    observer.observe(ref.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [ref, observer]);
-
-  return isIntersecting;
 }
