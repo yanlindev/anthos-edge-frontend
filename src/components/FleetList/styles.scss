@@ -108,7 +108,16 @@
 
     tbody {
       cursor: pointer;
-      // opacity: .7;
+      transition: all .15s ease-in-out;
+      
+      &:hover {
+        color: $blue;
+        text-decoration: underline;
+
+        // tr td {
+        //   opacity: 1;
+        // }
+      }
 
       tr {
         td {

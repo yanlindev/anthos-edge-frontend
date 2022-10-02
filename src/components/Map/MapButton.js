@@ -7,12 +7,7 @@ const MapButton = props => {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className={`map-button ${loaded ? 'map-button--loaded' : ''}`}>
-      {/* <img
-        src={shop_icon}
-        onLoad={() => setLoaded(true)}
-      /> */}
-      {/* <div>{props.text}</div> */}
+    <div className={`map-button`}>
     </div>
   )
 }

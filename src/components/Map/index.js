@@ -8,21 +8,21 @@ import './styles.scss';
 
 const Map = props => {
   const mapData = props.data;
+  const [dataReady, setDataReady] = useState(false);
   const [mapHeight, setMapHeight] = useState(0);
   const [mapWidth, setMapWidth] = useState(0);
   const [data, setData] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log(mapWidth)
-      setData(mapData);
-    }, 1000);
+    setData(mapData);
   }, [mapWidth, mapHeight]);
 
   useEffect(() => {
-    console.log(data)
-  }, data)
+    setTimeout(() => {
+      setDataReady(true);
+    }, 1200);
+  }, data);
 
   const handleImageLoad = () => {
     setTimeout(() => {
@@ -61,7 +61,12 @@ const Map = props => {
             const lat = parseFloat(getCoordinate(cluster.lat_long).lat);
             const lng = parseFloat(getCoordinate(cluster.lat_long).lng);
             return (
-              <div className='map__map__dot' key={cluster.name} onClick={props.handleButtonClick ? props.handleButtonClick : null} style={{position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}>
+              <div
+                className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''}`}
+                key={cluster.name}
+                onClick={props.handleButtonClick ? props.handleButtonClick : null}
+                style={{transitionDelay: `${index * .015}s`, position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
+              >
                 <MapButton
                   text={`Store${index}`}
                   data={cluster}
