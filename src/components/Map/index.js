@@ -15,6 +15,7 @@ const Map = props => {
   const ref = useRef(null);
 
   useEffect(() => {
+    console.log(mapWidth)
     setData(mapData);
   }, [mapWidth, mapHeight]);
 
@@ -28,16 +29,7 @@ const Map = props => {
     setTimeout(() => {
       setMapHeight(ref.current.offsetHeight);
       setMapWidth(ref.current.offsetWidth);
-    }, 500);
-  }
-
-  const getCoordinate = lat_long => {
-    const lat = lat_long.latitude;
-    const lng = lat_long.longitude;
-    return {
-      lat: lat.charAt(lng.length - 1) === ('S' || 's') ? ('-' + lat.replace(/\s/g,'.').slice(0, -2)) : lat.replace(/\s/g,'.').slice(0, -2),
-      lng: lng.charAt(lng.length - 1) === ('W' || 'w') ? ('-' + lng.replace(/\s/g,'.').slice(0, -2)) : lng.replace(/\s/g,'.').slice(0, -2)
-    }
+    }, 300);
   }
 
   return (
@@ -58,36 +50,63 @@ const Map = props => {
       >
         {
           data.map((cluster, index) => {
-            const lat = parseFloat(getCoordinate(cluster.lat_long).lat);
-            const lng = parseFloat(getCoordinate(cluster.lat_long).lng);
             return (
-              <div
-                className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''}`}
-                key={cluster.name}
-                onClick={props.handleButtonClick ? props.handleButtonClick : null}
-                style={{transitionDelay: `${index * .015}s`, position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
-              >
-                <MapButton
-                  text={`Store${index}`}
-                  data={cluster}
-                />
-                <div className='map__map__dot-info'>
-                  {/* {`Store${index}`} */}
-                </div>
-              </div>
+              <MapLabel
+                data={cluster}
+                dataReady={dataReady}
+                index={index}
+                activeIndex={props.activeIndex}
+                mapWidth={mapWidth}
+                mapHeight={mapHeight}
+                handleButtonClick={props.handleButtonClick}
+              />
             )
           })
         }
-        <LazyLoadImage
+        {/* <LazyLoadImage
           effect="blur"
           src={map_svg}
-        />
+        /> */}
+        <img className='map__map__map' src={map_svg} />
       </div>
     </div>
   )
 }
 
 export default Map;
+
+const MapLabel = props => {
+  const {data, dataReady, handleButtonClick, index, mapWidth, mapHeight} = props;
+  console.log(data)
+  const [active, setActive] = useState(false);
+
+  const lat = parseFloat(getCoordinate(data.lat_long).lat);
+  const lng = parseFloat(getCoordinate(data.lat_long).lng);
+
+  return (
+    <div
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.activeIndex == index ? 'map__map__dot--active' : ''}`}
+      key={data.name}
+      onClick={handleButtonClick ? handleButtonClick : null}
+      style={{transitionDelay: `${index * .015}s`, position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
+    >
+      <div className='map__map__dot-label'>
+        <div className={`label-inner`}>{`Store${index+1}`}</div>
+      </div>
+    </div>
+  )
+}
+
+const getCoordinate = lat_long => {
+  const lat = lat_long.latitude;
+  const lng = lat_long.longitude;
+  return {
+    lat: lat.charAt(lng.length - 1) === ('S' || 's') ? ('-' + lat.replace(/\s/g,'.').slice(0, -2)) : lat.replace(/\s/g,'.').slice(0, -2),
+    lng: lng.charAt(lng.length - 1) === ('W' || 'w') ? ('-' + lng.replace(/\s/g,'.').slice(0, -2)) : lng.replace(/\s/g,'.').slice(0, -2)
+  }
+}
 
 function latLonToOffsets(latitude, longitude, mapWidth, mapHeight) {
   const FE = 180; // false easting

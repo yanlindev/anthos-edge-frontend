@@ -9,6 +9,7 @@ import axios from 'axios';
 const MonitoringPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [data, setDate] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   useEffect(() => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
@@ -30,16 +31,22 @@ const MonitoringPage = () => {
     setModalOpen(false);
   }
 
+  const handleActiveIndex = index => {
+    setActiveIndex(index);
+  }
+
   return (
     <div className='monitoring-page'>
       <Map
-        // label='true'
-        // buttons={fleetData}
         data={data}
         handleButtonClick={handleOpenModal}
+        activeIndex={activeIndex}
       />
       <div className='monitoring-page__panel'>
-        <FleetList data={data} />
+        <FleetList
+          data={data}
+          setActiveIndex={handleActiveIndex}
+        />
         <FleetMetrics />
       </div>
       {
