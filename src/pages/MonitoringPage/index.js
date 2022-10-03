@@ -46,12 +46,16 @@ const MonitoringPage = () => {
         <FleetList
           data={data}
           setActiveIndex={handleActiveIndex}
+          handleOpenModal={handleOpenModal}
         />
         <FleetMetrics />
       </div>
       {
         modalOpen ?
-        <Modal handleClose={handleCloseModal} /> :
+        <Modal
+          data={activeIndex}
+          handleClose={handleCloseModal}
+        /> :
         null
       }
     </div>

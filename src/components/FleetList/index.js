@@ -5,6 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
 
 const FleetList = props => {
+  console.log(props)
   // const [activeIndex, setActiveIndex] = useState(null);
 
   return (
@@ -30,6 +31,7 @@ const FleetList = props => {
             <tbody
               onMouseEnter={() => props.setActiveIndex(index)}
               onMouseLeave={() => props.setActiveIndex(null)}
+              onClick={props.handleOpenModal}
             >
               <tr>
                 <td>{data.location} {index+1}</td>

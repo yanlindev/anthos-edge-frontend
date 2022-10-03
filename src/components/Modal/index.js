@@ -4,6 +4,7 @@ import close_icon from '../../assets/images/close.svg';
 import shop_icon from '../../assets/images/shop.svg';
 
 const Modal = props => {
+  console.log(props.data)
   return (
     <div className='modal'>
       <div className='modal__inner'>

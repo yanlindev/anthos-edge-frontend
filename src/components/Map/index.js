@@ -3,7 +3,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
 import map_svg from '../../assets/images/map-4.svg';
-import MapButton from './MapButton';
 import './styles.scss';
 
 const Map = props => {
@@ -90,7 +89,7 @@ const MapLabel = props => {
       className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.activeIndex == index ? 'map__map__dot--active' : ''}`}
       key={data.name}
       onClick={handleButtonClick ? handleButtonClick : null}
-      style={{transitionDelay: `${index * .015}s`, position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
+      style={{ position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
     >
       <div className='map__map__dot-label'>
         <div className={`label-inner`}>{`Store${index+1}`}</div>
