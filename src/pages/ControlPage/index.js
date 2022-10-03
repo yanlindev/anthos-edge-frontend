@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const ControlPage = () => {
   const [data, setData] = useState([]);
-
+  const [hoverIndex, setHoverIndex] = useState(null);
   useEffect(() => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
@@ -20,15 +20,23 @@ const ControlPage = () => {
     })
   }, [])
 
+  const handleHoverIndex = index => {
+    setHoverIndex(index);
+  }
+
   return (
     <div className='control-page'>
       <div className='control-page__first-row'>
         <Map
           data={data}
+          hoverIndex={hoverIndex}
         />
         <ACM />
       </div>
-      <FleetList data={data} />
+      <FleetList
+        data={data}
+        handleHoverIndex={handleHoverIndex}
+      />
     </div>
   )
 }

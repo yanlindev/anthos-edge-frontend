@@ -78,19 +78,6 @@
       }
     }
     
-    // tbody:nth-child(even){background-color: #eff1f4;}
-    tbody {
-      background-color: #eff2fa;
-
-      &:not(:first-of-type) {
-        border-top: 1px #d9e2f0 solid;
-      }
-
-      &:nth-child(even) {
-        background-color: #F7FAFF;
-      }
-    }
-    
     // tr:hover {background-color: rgb(232, 235, 238);}
     
     th {
@@ -107,8 +94,17 @@
     }
 
     tbody {
+      background-color: #eff2fa;
       cursor: pointer;
       transition: all .15s ease-in-out;
+
+      &:not(:first-of-type) {
+        border-top: 1px #d9e2f0 solid;
+      }
+
+      &:nth-child(even) {
+        background-color: #F7FAFF;
+      }
       
       &:hover {
         color: $blue;
@@ -129,6 +125,29 @@
             // font-family: 'sans-medium';
             // text-decoration: underline;
             // opacity: 1;
+          }
+
+          .tag {
+            border-radius: 45px;
+            font-size: 11px;
+            margin-right: 14px;
+            padding: 6px 14px;
+
+            &:nth-of-type(1) {
+              background-color: rgba(#FFA726, 1);
+            }
+
+            &:nth-of-type(2) {
+              background-color: rgba(#24C1E0, 1);
+            }
+
+            &:nth-of-type(3) {
+              background-color: rgba(#FF63B8, 1);
+            }
+
+            &:nth-of-type(4) {
+              background-color: rgba(#A980F1, 1);
+            }
           }
         }
       }

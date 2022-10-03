@@ -8,15 +8,17 @@ import axios from 'axios';
 
 const MonitoringPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [data, setDate] = useState([]);
+  const [data, setData] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null);
+  const [fleetData, setFleetData] = useState([]);
 
   useEffect(() => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
       // handle success
-      setDate(response.data);
+      console.log(response.data)
+      setData(response.data);
     })
     .catch(function (error) {
       // handle error
@@ -38,6 +40,15 @@ const MonitoringPage = () => {
     setHoverIndex(index);
   }
 
+  // get fleet data
+  useEffect(() => {
+    let fleetData = data.map(data => {
+      const {name, node_count, version} = data;
+      return {name, node_count, version};
+    });
+    setFleetData(fleetData);
+  }, [data])
+
   return (
     <div className='monitoring-page'>
       <Map
@@ -47,7 +58,7 @@ const MonitoringPage = () => {
       />
       <div className='monitoring-page__panel'>
         <FleetList
-          data={data}
+          data={fleetData}
           handleHoverIndex={handleHoverIndex}
           handleButtonClick={handleOpenModal}
         />

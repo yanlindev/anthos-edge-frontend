@@ -40,6 +40,11 @@
     right: 0;
     position: absolute;
 
+    &__link {
+      color: $blue;
+      text-decoration: none;
+    }
+
     &__button {
       margin-left: 30px;
     }

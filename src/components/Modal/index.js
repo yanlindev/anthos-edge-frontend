@@ -13,13 +13,25 @@ const Modal = props => {
     .then(function (response) {
       // handle success
       setNodes(response.data);
-      console.log(data)
     })
     .catch(function (error) {
       // handle error
       console.log(error);
-    })
+    });
   }, [])
+
+  const handleTerminateNode = index => {
+    axios.post('https://edge-demo-fljjthbteq-uw.a.run.app/testing/chaos/stopnode/', {
+      node_zone: nodes[index].zone,
+      node_name: nodes[index].name
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <div className='modal'>
@@ -41,12 +53,11 @@ const Modal = props => {
             <div className='modal__inner__content__nodes__header'>Nodes</div>
             {
               nodes.map((node, index) => (
-                <div className='modal__inner__content__nodes__row' key={index}>
-                  <div>{node.name}</div>
-                  <div>{node.ip}</div>
-                  <div>{node.instance_type}</div>
-                  <div className='row-button'>Terminate</div>
-                </div>
+                <NodeRow
+                  data={node}
+                  index={index}
+                  handleTerminateNode={handleTerminateNode}
+                />
               ))
             }
           </div>
@@ -60,6 +71,22 @@ const Modal = props => {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+const NodeRow = props => {
+  const {data, index, handleTerminateNode} = props;
+
+  return (
+    <div className='modal__inner__content__nodes__row' key={index}>
+      <div>{data.name}</div>
+      <div>{data.ip}</div>
+      <div>{data.instance_type}</div>
+      <div
+        className='row-button'
+        onClick={() => handleTerminateNode(index)}
+      >Terminate</div>
     </div>
   )
 }

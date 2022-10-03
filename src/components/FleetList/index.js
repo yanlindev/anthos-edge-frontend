@@ -5,8 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
 
 const FleetList = props => {
-  // const [activeIndex, setActiveIndex] = useState(null);
-
+  console.log(props.data[0])
   return (
     <div className='fleet-list'>
       <div className='fleet-list__title'>
@@ -22,20 +21,42 @@ const FleetList = props => {
             <th>Name</th>
             <th>Cluster</th>
             <th>Version</th>
+            {
+              props.data[0] && props.data[0].acm_status ?
+              <th>ACM Status</th> :
+              null
+            }
+            {
+              props.data[0] && props.data[0].labels ?
+              <th>Tags</th> :
+              null
+            }
           </tr>
         </thead>
         {
           props.data.length > 0 ?
           props.data.map((data, index) => (
             <tbody
-              onMouseEnter={() => props.handleHoverIndex(index)}
-              onMouseLeave={() => props.handleHoverIndex(null)}
+              onMouseEnter={props.handleHoverIndex ? () => props.handleHoverIndex(index) : null}
+              onMouseLeave={props.handleHoverIndex ? () => props.handleHoverIndex(null) : null}
               onClick={props.handleButtonClick ? () => props.handleButtonClick(index) : null}
             >
               <tr>
-                <td>{data.location} {index+1}</td>
+                <td>{data.name}</td>
                 <td>{data.node_count}</td>
                 <td>{data.version}</td>
+                {
+                  data.acm_status ?
+                  <td>{data.acm_status}</td> :
+                  null
+                }
+                {
+                  data.labels ?
+                  <td>
+                    {Object.values(data.labels).map(label => <span className='tag'>{label}</span>)}
+                  </td> :
+                  null
+                }
               </tr>
             </tbody>
           )) :

@@ -14,10 +14,7 @@ const ACM = () => {
       <div className='acm__subtitle'>Upgrade/Downgrade application version</div>
 
       <div className='acm__confirm'>
-        <Link
-          text='View Repository'
-          url='http://www.github.com'
-        />
+        <a className='acm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
         <Button
           class='acm__confirm__button'
           text='Apply'

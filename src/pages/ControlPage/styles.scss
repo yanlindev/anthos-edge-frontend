@@ -12,6 +12,17 @@
     }
   }
 
+  .fleet-list {
+    tbody {
+      cursor: pointer;
+
+      &:hover {
+        color: $black;
+        text-decoration: none;
+      }
+    }
+  }
+
   &__first-row {
     display: flex;
     margin-bottom: 12px;
