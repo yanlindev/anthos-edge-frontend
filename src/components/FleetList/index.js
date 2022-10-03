@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import fleetInfoIcon from '../../assets/images/fleetInfo.svg';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
 
 const FleetList = props => {
-  console.log(props)
   // const [activeIndex, setActiveIndex] = useState(null);
 
   return (
@@ -29,9 +28,9 @@ const FleetList = props => {
           props.data.length > 0 ?
           props.data.map((data, index) => (
             <tbody
-              onMouseEnter={() => props.setActiveIndex(index)}
-              onMouseLeave={() => props.setActiveIndex(null)}
-              onClick={props.handleOpenModal}
+              onMouseEnter={() => props.handleHoverIndex(index)}
+              onMouseLeave={() => props.handleHoverIndex(null)}
+              onClick={props.handleButtonClick ? () => props.handleButtonClick(index) : null}
             >
               <tr>
                 <td>{data.location} {index+1}</td>

@@ -54,7 +54,7 @@ const Map = props => {
                 data={cluster}
                 dataReady={dataReady}
                 index={index}
-                activeIndex={props.activeIndex}
+                hoverIndex={props.hoverIndex}
                 mapWidth={mapWidth}
                 mapHeight={mapHeight}
                 handleButtonClick={props.handleButtonClick}
@@ -76,7 +76,6 @@ export default Map;
 
 const MapLabel = props => {
   const {data, dataReady, handleButtonClick, index, mapWidth, mapHeight} = props;
-  console.log(data)
   const [active, setActive] = useState(false);
 
   const lat = parseFloat(getCoordinate(data.lat_long).lat);
@@ -86,9 +85,9 @@ const MapLabel = props => {
     <div
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.activeIndex == index ? 'map__map__dot--active' : ''}`}
+      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex == index ? 'map__map__dot--active' : ''}`}
       key={data.name}
-      onClick={handleButtonClick ? handleButtonClick : null}
+      onClick={handleButtonClick ? () => handleButtonClick(index) : null}
       style={{ position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
     >
       <div className='map__map__dot-label'>

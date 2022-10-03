@@ -9,6 +9,7 @@ import axios from 'axios';
 const MonitoringPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [data, setDate] = useState([]);
+  const [hoverIndex, setHoverIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null);
 
   useEffect(() => {
@@ -23,16 +24,18 @@ const MonitoringPage = () => {
     })
   }, [])
 
-  const handleOpenModal = () => {
+  const handleOpenModal = index => {
+    setActiveIndex(index);
     setModalOpen(true);
   }
 
   const handleCloseModal = () => {
+    setActiveIndex(null);
     setModalOpen(false);
   }
 
-  const handleActiveIndex = index => {
-    setActiveIndex(index);
+  const handleHoverIndex = index => {
+    setHoverIndex(index);
   }
 
   return (
@@ -40,20 +43,20 @@ const MonitoringPage = () => {
       <Map
         data={data}
         handleButtonClick={handleOpenModal}
-        activeIndex={activeIndex}
+        hoverIndex={hoverIndex}
       />
       <div className='monitoring-page__panel'>
         <FleetList
           data={data}
-          setActiveIndex={handleActiveIndex}
-          handleOpenModal={handleOpenModal}
+          handleHoverIndex={handleHoverIndex}
+          handleButtonClick={handleOpenModal}
         />
         <FleetMetrics />
       </div>
       {
         modalOpen ?
         <Modal
-          data={activeIndex}
+          data={data[activeIndex]}
           handleClose={handleCloseModal}
         /> :
         null

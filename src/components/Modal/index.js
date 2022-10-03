@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import close_icon from '../../assets/images/close.svg';
 import shop_icon from '../../assets/images/shop.svg';
+import axios from 'axios';
 
 const Modal = props => {
-  console.log(props.data)
+  const {data} = props;
+  const [nodes, setNodes] = useState([]);
+  
+  useEffect(() => {
+    axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/nodes/?cluster_name=${data.name}&location=${data.location}`)
+    .then(function (response) {
+      // handle success
+      setNodes(response.data);
+      console.log(data)
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }, [])
+
   return (
     <div className='modal'>
       <div className='modal__inner'>
         <div className='modal__inner__header'>
           <div className='title'>
             <img src={shop_icon} />
-            <span>Store - hardcoded</span>
+            <span>{data.name}</span>
           </div>
           <img
             className='modal__inner__close'
@@ -23,18 +39,16 @@ const Modal = props => {
         <div className='modal__inner__content'>
           <div className='modal__inner__content__nodes'>
             <div className='modal__inner__content__nodes__header'>Nodes</div>
-            <div className='modal__inner__content__nodes__row'>
-              <div>Node-1</div>
-              <div>ip: 10.1.2.1</div>
-              <div className='row-status'>active</div>
-              <div className='row-button'>Terminate</div>
-            </div>
-            <div className='modal__inner__content__nodes__row'>
-              <div>Node-1</div>
-              <div>ip: 10.1.2.1</div>
-              <div className='row-status'>active</div>
-              <div className='row-button'>Terminate</div>
-            </div>
+            {
+              nodes.map((node, index) => (
+                <div className='modal__inner__content__nodes__row' key={index}>
+                  <div>{node.name}</div>
+                  <div>{node.ip}</div>
+                  <div>{node.instance_type}</div>
+                  <div className='row-button'>Terminate</div>
+                </div>
+              ))
+            }
           </div>
           <div className='modal__inner__content__dashboard'>
             <div className='modal__inner__content__nodes__header'>In-Store Dashboard</div>
