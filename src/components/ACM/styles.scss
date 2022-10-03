@@ -4,6 +4,8 @@
   background: $white;
   border: $grey_light 1px solid;
   border-radius: 8px;
+  height: 50vh;
+  overflow: hidden;
   position: relative;
 
   &__title {
@@ -29,8 +31,127 @@
     padding: 0 0 25px 45px;
   }
 
+  &__inner {
+    color: $grey;
+    font-size: 14px;
+    padding: 0 45px;
+    overflow-y: scroll;
+    /* overflow-y: hidden; */
+    height: calc(50vh - 167px);
+
+    &__version {
+      border-bottom: 1px rgba($grey_light, .5) solid;
+      padding: 25px 0;
+
+      .version-title {
+        align-items: center;
+        display: flex;
+        margin-bottom: 14px;
+  
+        img {
+          margin-right: 12px;
+        }
+      }
+
+      .version-select {
+        cursor: pointer;
+        max-width: 300px;
+
+        div {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__policies {
+      border-bottom: 1px rgba($grey_light, .5) solid;
+      padding: 25px 0;
+
+      .policy-title {
+        align-items: center;
+        display: flex;
+        margin-bottom: 14px;
+  
+        img {
+          margin-right: 12px;
+        }
+      }
+
+      .policy-policies {
+        .css-g1d714-ValueContainer {
+          padding: 6px 8px;
+        }
+
+        .css-1rhbuit-multiValue {
+          background-color: rgba($blue, .15);
+
+          .css-12jo7m5 {
+            font-size: 14px !important;
+          }
+        }
+
+        .css-12jo7m5 {
+          padding: 6px;
+        }
+
+        .css-g1d714-ValueContainer {
+          div {
+            width: unset !important;
+          }
+        }
+
+        .toggle-button {
+          margin: 4px 6px 6px 0;
+        }
+      }
+    }
+
+    &__tags {
+      padding: 25px 0;
+
+      .tag-title {
+        align-items: center;
+        display: flex;
+        margin-bottom: 14px;
+  
+        img {
+          margin-right: 12px;
+        }
+      }
+
+      .tag-tags {
+        .css-g1d714-ValueContainer {
+          padding: 6px 8px;
+        }
+
+        .css-1rhbuit-multiValue {
+          background-color: rgba($blue, .15);
+
+          .css-12jo7m5 {
+            font-size: 14px !important;
+          }
+        }
+
+        .css-12jo7m5 {
+          padding: 6px;
+        }
+
+        .css-g1d714-ValueContainer {
+          div {
+            width: unset !important;
+          }
+        }
+
+        .toggle-button {
+          margin: 4px 6px 6px 0;
+        }
+      }
+    }
+  }
+
   &__confirm {
     align-items: center;
+    background: white;
     border-top: 1px $grey_light solid;
     bottom: 0;
     display: flex;

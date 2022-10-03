@@ -9,10 +9,38 @@
   display: flex;
   display: inline-block;
   justify-content: center;
-  padding: 12px 28px;
+  padding: 10px 24px;
   transition: opacity .2s ease-in-out;
 
   &:hover {
     opacity: .9;
+  }
+}
+
+.toggle-button {
+  background-color: $white;
+  border: 1px $blue solid;
+  border-radius: 50px;
+  color: $blue;
+  font-size: 13px;
+  padding: 8px 14px;
+
+  .inner {
+    align-items: center;
+    display: flex;
+
+    img {
+      display: none;
+      margin-left: 3px;
+      margin-right: -3px;
+    }
+  }
+
+  &--clicked {
+    background: rgba($blue, .24);
+
+    .inner img {
+      display: block;
+    }
   }
 }
