@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
 import map_svg from '../../assets/images/map-4.svg';
+import shop_icon from '../../assets/images/shop--blue.svg';
 import './styles.scss';
 
 const Map = props => {
@@ -41,6 +42,17 @@ const Map = props => {
         </div> :
         null
       }
+
+      <div className='map__marks'>
+        <div className='map__marks__mark'>
+          <div className='dot dot--ready'></div>
+          <div className='mark'>Ready</div>
+        </div>
+        <div className='map__marks__mark'>
+          <div className='dot dot--offline'></div>
+          <div className='mark'>Offline</div>
+        </div>
+      </div>
 
       <div
         className='map__map'
@@ -85,13 +97,16 @@ const MapLabel = props => {
     <div
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex == index ? 'map__map__dot--active' : ''}`}
+      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex == index ? 'map__map__dot--active' : ''} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'}`}
       key={data.name}
       onClick={handleButtonClick ? () => handleButtonClick(index) : null}
       style={{ position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
     >
       <div className='map__map__dot-label'>
-        <div className={`label-inner`}>{`Store${index+1}`}</div>
+        <div className={`label-inner`}>
+          <img src={shop_icon} />
+          <div>{`Store${index+1}`}</div>
+        </div>
       </div>
     </div>
   )

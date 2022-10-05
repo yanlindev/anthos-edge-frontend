@@ -13,8 +13,7 @@
   linear-gradient(-90deg, transparent 3px, #fff 3px, #fff 78px, transparent 78px),
   linear-gradient(#fff 1px, transparent 1px),
   #fff;
-background-size:
-  80px 80px;
+  background-size: 80px 80px;
   border: $grey_light 1px solid;
   border-radius: 8px;
   display: flex;
@@ -22,6 +21,41 @@ background-size:
   justify-content: center;
   overflow: hidden;
   position: relative;
+
+  &__marks {
+    bottom: 30px;
+    display: flex;
+    left: 30px;
+    position: absolute;
+
+    &__mark {
+      align-items: center;
+      display: flex;
+
+      &:not(:first-of-type) {
+        margin-left: 24px;
+      }
+
+      .dot {
+        border-radius: 100%;
+        height: 15px;
+        margin-right: 8px;
+        width: 15px;
+
+        &--offline {
+          background-color: #FF4D6D;
+        }
+
+        &--ready {
+          background-color: $blue;
+        }
+      }
+
+      .mark {
+        color: $grey;
+      }
+    }
+  }
 
   &__label {
     align-items: center;
@@ -52,8 +86,7 @@ background-size:
       opacity: 0;
       position: relative;
       align-items: center;
-      background: $white;
-      border: 2.4px $blue solid;
+      border: 3px $white solid;
       border-radius: 50px;
       box-shadow: 0 3px 12px rgba($grey, .4);
       color: $white;
@@ -62,23 +95,20 @@ background-size:
       font-family: 'sans-medium';
       font-size: 12px;
       justify-content: center;
-      // padding: 8px 18px 8px 10px;
       position: absolute;
-      // transition: opacity .3s ease-in-out;
       z-index: 0;
-      width: 12px;
-      height: 12px;
+      width: 15px;
+      height: 15px;
       transform: scale(1);
       transition: transform .5s ease-in-out;
 
-      // &::after {
-      //   content: '';
-      //   position: absolute;
-      //   height: 20px;
-      //   width: 20px;
-      //   background: red;
-      //   z-index: -1;
-      // }
+      &.is-ready {
+        background-color: $blue;
+      }
+
+      &.is-offline {
+        background-color: #FF4D6D;
+      }
 
       &:hover {
         background: $blue;
@@ -97,15 +127,22 @@ background-size:
         pointer-events: none;
 
         .label-inner {
+          display: flex;
+          align-items: center;
           border-radius: 100px;
           background-color: $blue;
-          padding: 9px 20px;
+          padding: 7px 18px 7px 7px;
           position: absolute;
-          left: -36px;
+          left: 50%;
+          transform: translateX(-50%);
           bottom: 12px;
           opacity: 0;
           transition: all .3s ease-in-out;
           z-index: 1;
+
+          img {
+            margin-right: 10px;
+          }
         }
       }
 

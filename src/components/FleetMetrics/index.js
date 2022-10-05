@@ -21,7 +21,7 @@ const FleetMetrics = () => {
         {/* <iframe src="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1664232237716&to=1664235837716&theme=light" width="450" height="200" frameborder="0"></iframe> */}
         {/* <embedded-webview src="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1664232237716&to=1664235837716&theme=light"></embedded-webview> */}
       </div>
-      <iframe src="http://34.170.231.75:3000/d-solo/k8s_views_nodes/kubernetes-views-nodes?orgId=1&refresh=30s&from=1664234291204&to=1664237891204&panelId=24" width="450" height="200" frameborder="0"></iframe>
+      <iframe src="http://35.226.31.136:3000/d-solo/7fiTefVVz/kubernetes-views-global?orgId=1&refresh=30s&from=1664907795713&to=1664911395713&panelId=77" width="450" height="200" frameborder="0"></iframe>
     </div>
   )
 }

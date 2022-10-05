@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  HashRouter
 } from "react-router-dom";
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -14,7 +15,7 @@ import './scss/main.scss';
 
 const App = () => {
   return (
-    <Router>
+    <HashRouter>
       <Header />
       <div className="App__main">
         <Sidebar />
@@ -31,7 +32,7 @@ const App = () => {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 

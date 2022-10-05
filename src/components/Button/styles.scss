@@ -3,13 +3,13 @@
 .button {
   align-items: center;
   background: $blue;
-  border-radius: 6px;
+  border-radius: 8px;
   color: $white;
   cursor: pointer;
   display: flex;
   display: inline-block;
   justify-content: center;
-  padding: 10px 24px;
+  padding: 12px 26px;
   transition: opacity .2s ease-in-out;
 
   &:hover {
