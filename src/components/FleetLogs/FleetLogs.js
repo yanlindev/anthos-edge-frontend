@@ -7,7 +7,7 @@ import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
 
-const ACM = () => {
+const FleetLogs = () => {
   const [appVersions, setAppVersions] = useState([]);
   const [policies, setPolicies] = useState([]);
   const [tags, setTags] = useState({});
@@ -69,50 +69,19 @@ const ACM = () => {
     })
   }, [])
 
+  useEffect(() => {
+    console.log(tags)
+  }, [tags])
+
   return (
     <div className='acm'>
       <div className='acm__title'>
         <img className='icon' src={fleetMetricsIcon} />
-        <div className='text'>ACM Fleet Management</div>
+        <div className='text'>Fleet Real-Time Logs</div>
       </div>
-      <div className='acm__subtitle'>Upgrade/Downgrade application version</div>
 
       <div className='acm__inner'>
-        <div className='acm__inner__version'>
-          <div className='version-title'>
-              <div className='version-title__line'></div>
-              <div>Select App Version :</div>
-          </div>
-          <div className='version-select'>
-            <Select options={appVersions} />
-          </div>
-        </div>
-        <div className='acm__inner__policies'>
-          <div className='policy-title'>
-            <span>Select Policies :</span>
-          </div>
-          <div className='policy-policies'>
-            <Select options={policies} />
-          </div>
-        </div>
-        <div className='acm__inner__tags'>
-          <div className='tag-title'>
-            <span>Select Stores by Tag :</span>
-          </div>
-          <div className='tag-tags'>
-            <div className='tag-tags__wrapper'>
-              <div className='tag-tags__block'>
-                {
-                  Object.keys(tags).map((key, index) => {
-                    return (
-                      <TagBlock tags={tags} tagskey={key} index={index} />
-                    );
-                  })
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       <div className='acm__confirm'>
@@ -126,30 +95,4 @@ const ACM = () => {
   )
 }
 
-export default ACM;
-
-const TagBlock = props => {
-  const {tags, tagskey, index} = props;
-  const [expanded, setExpanded] = useState(true);
-
-  return (
-    <div className={`tag-tags__block ${expanded ? 'is-expanded' : ''}`}>
-      <div
-        className={`tag-tags__block__title ${index === 0 ? 'tag-tags__block__title--first' : ''}`}
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div>{tagskey}</div>
-        <img src={acm_arrow_icon} />
-      </div>
-      <div className='tag-tags__block__tags'>
-        {
-          tags[tagskey].map((el, index) => (
-            <div className='tag-tags__block__tag'>
-              <ToggleButton text={el} />
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  )
-}
+export default FleetLogs;

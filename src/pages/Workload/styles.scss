@@ -2,6 +2,27 @@
 
 .workload-page {
   background: $grey_bg;
-  display: flex;
+  padding: 12px 12px 0;
   width: 100%;
+
+  .map {
+    &__map {
+      height: 95%;
+      margin-left: -90px;
+    }
+  }
+
+  &__first-row {
+    display: flex;
+    margin-bottom: 12px;
+
+    .map {
+      flex-basis: 65%;
+      margin-right: 12px;
+    }
+
+    .vm {
+      flex-basis: calc(35% - 12px);
+    }
+  }
 }

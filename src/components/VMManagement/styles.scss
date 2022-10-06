@@ -1,0 +1,110 @@
+@import '../../scss/variables.scss';
+
+.vm {
+  background: $white;
+  border: $grey_light 1px solid;
+  border-radius: 8px;
+  height: 50vh;
+  overflow: hidden;
+  position: relative;
+
+  &__title {
+    align-items: center;
+    display: flex;
+    // font-family: 'sans-medium';
+    font-size: 18px;
+    padding: 25px 20px 10px;
+
+    .icon {
+      width: 16px;
+    }
+
+    .text {
+      margin-left: 10px;
+    }
+  }
+
+  &__subtitle {
+    border-bottom: $grey_light 1px solid;
+    color: #a9adb2;
+    font-size: 13px;
+    padding: 0 0 25px 45px;
+  }
+
+  &__inner {
+    color: $grey;
+    font-size: 14px;
+    padding: 0 45px;
+    overflow-y: scroll;
+    height: calc(50vh - 167px);
+
+    &__image {
+      border-bottom: 1px rgba($grey_light, .5) solid;
+      padding: 25px 0;
+
+      .image-title {
+        align-items: center;
+        display: flex;
+        margin-bottom: 14px;
+  
+        img {
+          margin-right: 12px;
+        }
+      }
+
+      .image-select {
+        cursor: pointer;
+        max-width: 370px;
+
+        div {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__store {
+      padding: 25px 0;
+
+      .store-title {
+        align-items: center;
+        display: flex;
+        margin-bottom: 14px;
+  
+        img {
+          margin-right: 12px;
+        }
+      }
+
+      .store-select {
+        cursor: pointer;
+        max-width: 370px;
+
+        div {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &__confirm {
+    align-items: center;
+    background: white;
+    border-top: 1px $grey_light solid;
+    bottom: 0;
+    display: flex;
+    justify-content: end;
+    left: 0;
+    padding: 20px;
+    right: 0;
+    position: absolute;
+
+    &__link {
+      color: $blue;
+      text-decoration: none;
+    }
+
+    &__button {
+      margin-left: 30px;
+    }
+  }
+}

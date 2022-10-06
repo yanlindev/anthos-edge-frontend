@@ -65,7 +65,7 @@ const Map = props => {
                 data={cluster}
                 dataReady={dataReady}
                 index={index}
-                hoverIndex={props.hoverIndex}
+                hoverIndex={props.hoverIndex ? props.hoverIndex : null}
                 mapWidth={mapWidth}
                 mapHeight={mapHeight}
                 handleButtonClick={props.handleButtonClick}
@@ -96,7 +96,7 @@ const MapLabel = props => {
     <div
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex == index ? 'map__map__dot--active' : ''} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'}`}
+      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex ? props.hoverIndex == index ? 'map__map__dot--active' : '' : null} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'}`}
       key={data.name}
       onClick={handleButtonClick ? () => handleButtonClick(index) : null}
       style={{ position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
