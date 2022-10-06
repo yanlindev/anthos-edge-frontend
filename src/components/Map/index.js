@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
@@ -13,6 +14,7 @@ const Map = props => {
   const [mapWidth, setMapWidth] = useState(0);
   const [data, setData] = useState([]);
   const ref = useRef(null);
+  // console.log(selectedTags)
 
   useEffect(() => {
     setData(mapData);

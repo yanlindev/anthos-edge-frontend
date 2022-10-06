@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import './styles.scss';
 import Button from '../Button/Button';
@@ -6,11 +7,15 @@ import ToggleButton from '../Button/ToggleButton';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
+import { updateSelectedTags } from '../../redux/clusterSlice';
 
 const ACM = props => {
   const [appVersions, setAppVersions] = useState([]);
   const [policies, setPolicies] = useState([]);
   const [tags, setTags] = useState({});
+
+  const { selectedTags } = useSelector((state) => state.cluster);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // get app version list
@@ -70,7 +75,7 @@ const ACM = props => {
   }, [])
 
   const handleSelectedTags = selectedTags => {
-    console.log(selectedTags)
+    dispatch(updateSelectedTags())
   }
 
   return (
