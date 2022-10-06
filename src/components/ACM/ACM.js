@@ -7,7 +7,7 @@ import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
 
-const ACM = () => {
+const ACM = props => {
   const [appVersions, setAppVersions] = useState([]);
   const [policies, setPolicies] = useState([]);
   const [tags, setTags] = useState({});
@@ -69,6 +69,10 @@ const ACM = () => {
     })
   }, [])
 
+  const handleSelectedTags = selectedTags => {
+    console.log(selectedTags)
+  }
+
   return (
     <div className='acm'>
       <div className='acm__title'>
@@ -105,7 +109,12 @@ const ACM = () => {
                 {
                   Object.keys(tags).map((key, index) => {
                     return (
-                      <TagBlock tags={tags} tagskey={key} index={index} />
+                      <TagBlock
+                        tags={tags}
+                        tagskey={key}
+                        index={index}
+                        handleSelectedTags={handleSelectedTags}
+                      />
                     );
                   })
                 }
@@ -129,8 +138,32 @@ const ACM = () => {
 export default ACM;
 
 const TagBlock = props => {
-  const {tags, tagskey, index} = props;
+  const {tags, tagskey, index, handleSelectedTags} = props;
   const [expanded, setExpanded] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
+  const [selectedTags, setSelectedTags] = useState(tags);
+
+  useEffect(() => {
+    for (let [key, value] of Object.entries(JSON.parse(JSON.stringify(tags)))) {
+      selectedTags[key] = [];
+    }
+  }, [])
+
+  const handleTagClick = (tagskey, el) => {
+    if(Object.keys(selectedTags).find(key => key === tagskey)) {
+      // remove tag if already added
+      if(selectedTags[tagskey].includes(el)) {
+        const index = selectedTags[tagskey].indexOf(el);
+        if (index > -1) {
+          selectedTags[tagskey].splice(index, 1);
+        }
+      } else {
+        // add tag if not included
+        selectedTags[tagskey].push(el);
+      }
+    }
+    handleSelectedTags(selectedTags);
+  }
 
   return (
     <div className={`tag-tags__block ${expanded ? 'is-expanded' : ''}`}>
@@ -145,7 +178,11 @@ const TagBlock = props => {
         {
           tags[tagskey].map((el, index) => (
             <div className='tag-tags__block__tag'>
-              <ToggleButton text={el} />
+              <div
+                onClick={() => handleTagClick(tagskey, el)}
+              >
+                <ToggleButton text={el} />
+              </div>
             </div>
           ))
         }

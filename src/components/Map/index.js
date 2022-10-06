@@ -22,7 +22,7 @@ const Map = props => {
     setTimeout(() => {
       setDataReady(true);
     }, 1200);
-  }, data);
+  }, [data]);
 
   const handleImageLoad = () => {
     setTimeout(() => {

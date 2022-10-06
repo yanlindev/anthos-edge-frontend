@@ -8,6 +8,8 @@ import axios from 'axios';
 const ControlPage = () => {
   const [data, setData] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
+  const [selectedTags, setSelectedTags] = useState({});
+
   useEffect(() => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
