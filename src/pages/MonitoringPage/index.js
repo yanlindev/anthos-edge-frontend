@@ -17,7 +17,6 @@ const MonitoringPage = () => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
       // handle success
-      console.log(response.data)
       setData(response.data);
     })
     .catch(function (error) {

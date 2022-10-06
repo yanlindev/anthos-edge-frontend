@@ -1,45 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
 import './styles.scss';
 import Button from '../Button/Button';
 import ToggleButton from '../Button/ToggleButton';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
+import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
-
-// const options = [
-//   { value: 'win9', label: 'Windows 9' },
-//   { value: 'win10', label: 'Windows 10' },
-//   { value: 'win11', label: 'Windows 11' }
-// ]
-
-// const policies = [
-//   { value: 'win9', label: 'Disable SSH' },
-//   { value: 'win10', label: 'Require Limits' },
-//   { value: 'win11', label: 'Limit to GCP Repos' },
-//   { value: 'win12', label: 'Restrict External IPs' },
-//   { value: 'win13', label: 'Create Custom Namespace' },
-// ]
-
-const tags = [
-  { value: 'win9', label: 'west' },
-  { value: 'win10', label: 'north' },
-  { value: 'win11', label: 'south' },
-  { value: 'win12', label: 'east' },
-]
 
 const ACM = () => {
   const [appVersions, setAppVersions] = useState([]);
   const [policies, setPolicies] = useState([]);
+  const [tags, setTags] = useState({});
 
   useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/virtual-machine/image_list')
+    // get app version list
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/application-list')
     .then(function (response) {
       let version_list = [];
       response.data.forEach(data => {
         version_list.push({
-          value: data.name,
-          label: data.name
+          value: data,
+          label: data
         });
       })
       setAppVersions(version_list);
@@ -63,7 +44,34 @@ const ACM = () => {
     .catch(function (error) {
       console.log(error);
     })
+
+    // get tag list
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    .then(function (response) {
+      const data = response.data;
+      let tags = {};
+      for (let [key, value] of Object.entries(JSON.parse(JSON.stringify(data[0].labels)))) {
+        tags[key] = [];
+      }
+      data.forEach(cluster => {
+        for (const key in cluster.labels) {
+          for (const tagKey in tags) {
+            if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
+              tags[tagKey].push(cluster.labels[key])
+            }
+          }
+        }
+      })
+      setTags(tags);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   }, [])
+
+  useEffect(() => {
+    console.log(tags)
+  }, [tags])
 
   return (
     <div className='acm'>
@@ -76,7 +84,8 @@ const ACM = () => {
       <div className='acm__inner'>
         <div className='acm__inner__version'>
           <div className='version-title'>
-            <span>Select App Version :</span>
+              <div className='version-title__line'></div>
+              <div>Select App Version :</div>
           </div>
           <div className='version-select'>
             <Select options={appVersions} />
@@ -95,9 +104,35 @@ const ACM = () => {
             <span>Select Stores by Tag :</span>
           </div>
           <div className='tag-tags'>
-            {
+            {/* {
               tags.map(tag => <ToggleButton text={tag.label} />)
-            }
+            } */}
+            <div className='tag-tags__wrapper'>
+              <div className='tag-tags__block'>
+                {
+                  Object.keys(tags).map((key, index) => {
+                    return (
+                      <TagBlock tags={tags} tagskey={key} index={index} />
+                      // <div className='tag-tags__block'>
+                      //   <div className={`tag-tags__block__title ${index === 0 ? 'tag-tags__block__title--first' : ''}`}>
+                      //     <div>{key}</div>
+                      //     <img src={acm_arrow_icon} />
+                      //   </div>
+                      //   <div className='tag-tags__block__tags'>
+                      //     {
+                      //       tags[key].map((el, index) => (
+                      //         <div className='tag-tags__block__tag'>
+                      //           <ToggleButton text={el} />
+                      //         </div>
+                      //       ))
+                      //     }
+                      //   </div>
+                      // </div>
+                    );
+                  })
+                }
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -114,3 +149,29 @@ const ACM = () => {
 }
 
 export default ACM;
+
+const TagBlock = props => {
+  const {tags, tagskey, index} = props;
+  const [expanded, setExpanded] = useState(true);
+
+  return (
+    <div className={`tag-tags__block ${expanded ? 'is-expanded' : ''}`}>
+      <div
+        className={`tag-tags__block__title ${index === 0 ? 'tag-tags__block__title--first' : ''}`}
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div>{tagskey}</div>
+        <img src={acm_arrow_icon} />
+      </div>
+      <div className='tag-tags__block__tags'>
+        {
+          tags[tagskey].map((el, index) => (
+            <div className='tag-tags__block__tag'>
+              <ToggleButton text={el} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  )
+}

@@ -46,6 +46,13 @@
         align-items: center;
         display: flex;
         margin-bottom: 14px;
+
+        &__line {
+          // background: $blue;
+          // height: 14px;
+          // margin-right: 6px;
+          // width: 4px;
+        }
   
         img {
           margin-right: 12px;
@@ -122,31 +129,86 @@
       }
 
       .tag-tags {
-        .css-g1d714-ValueContainer {
-          padding: 6px 8px;
+        &__wrapper {
+          border: 1px solid $grey_light;
+          border-radius: 8px;
+          // border-top: none;
+          overflow-y: hidden;
         }
 
-        .css-1rhbuit-multiValue {
-          background-color: rgba($blue, .15);
+        &__block {
+          &__title {
+            align-items: center;
+            background-color: rgba($grey_light, .15);
+            border-bottom: 1px solid $grey_light;
+            border-top: 1px solid $grey_light;
+            cursor: pointer;
+            display: flex;
+            font-size: 15px;
+            justify-content: space-between;
+            padding: 12px;
 
-          .css-12jo7m5 {
-            font-size: 14px !important;
+            img {
+              transform: rotate(0);
+              transition: transform .3s ease-in-out;
+              width: 10px;
+            }
+
+            &--first {
+              border-top: none;
+            }
+          }
+
+          &__tags {
+            display: flex;
+            flex-wrap: wrap;
+            height: 0;
+            padding: 12px;
+            overflow: hidden;
+            padding: 0;
+          }
+
+          &__tag {
+            margin: 8px;
+          }
+
+          &.is-expanded {
+            .tag-tags__block__title img {
+              transform: rotate(180deg);
+            }
+
+            .tag-tags__block__tags {
+              height: auto;
+              overflow: auto;
+              padding: 15px 0;
+            }
           }
         }
+        // .css-g1d714-ValueContainer {
+        //   padding: 6px 8px;
+        // }
 
-        .css-12jo7m5 {
-          padding: 6px;
-        }
+        // .css-1rhbuit-multiValue {
+        //   background-color: rgba($blue, .15);
 
-        .css-g1d714-ValueContainer {
-          div {
-            width: unset !important;
-          }
-        }
+        //   .css-12jo7m5 {
+        //     font-size: 14px !important;
+        //   }
+        // }
 
-        .toggle-button {
-          margin: 4px 6px 6px 0;
-        }
+        // .css-12jo7m5 {
+        //   padding: 6px;
+        // }
+
+        // .css-g1d714-ValueContainer {
+        //   div {
+        //     width: unset !important;
+        //   }
+        // }
+
+        // .toggle-button {
+        //   margin: 4px 6px 6px 0;
+        // }
       }
     }
   }

@@ -15,7 +15,6 @@ const Map = props => {
   const ref = useRef(null);
 
   useEffect(() => {
-    console.log(mapWidth)
     setData(mapData);
   }, [mapWidth, mapHeight]);
 

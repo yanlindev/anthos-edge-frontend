@@ -5,7 +5,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
 
 const FleetList = props => {
-  console.log(props.data[0])
   return (
     <div className='fleet-list'>
       <div className='fleet-list__title'>
