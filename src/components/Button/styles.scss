@@ -2,7 +2,7 @@
 
 .button {
   align-items: center;
-  background: $blue;
+  background-color: $blue;
   border-radius: 8px;
   color: $white;
   cursor: pointer;
@@ -10,10 +10,20 @@
   display: inline-block;
   justify-content: center;
   padding: 12px 26px;
+  pointer-events: visible;
   transition: opacity .2s ease-in-out;
 
   &:hover {
     opacity: .9;
+  }
+
+  &--disable {
+    background-color: #bebfc1;
+    pointer-events: none;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 

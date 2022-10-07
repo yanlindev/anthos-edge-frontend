@@ -9,12 +9,15 @@ import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
 import { updateSelectedTags } from '../../redux/clusterSlice';
 
-const ACM = props => {
+const ACM = () => {
+  const { selectedTags } = useSelector((state) => state.cluster);
   const [appVersions, setAppVersions] = useState([]);
   const [policies, setPolicies] = useState([]);
   const [tags, setTags] = useState({});
+  const [selectedAppVersion, setSelectedAppVersion] = useState(null);
+  const [selectedPolicy, setSelectedPolicy] = useState(null);
+  const [buttonActive, setButtonActive] = useState(false);
 
-  // const { selectedTags } = useSelector((state) => state.cluster);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,6 +77,23 @@ const ACM = props => {
     })
   }, [])
 
+  // active button if all inputs are filled
+  useEffect(() => {
+    if(selectedAppVersion && selectedPolicy && selectedTags.length > 0) {
+      setButtonActive(true);
+    } else {
+      setButtonActive(false);
+    }
+  }, [selectedAppVersion, selectedPolicy, selectedTags])
+
+  const handleAppVersionChange = selectedOption => {
+    setSelectedAppVersion(selectedOption.value);
+  };
+
+  const handlePolicyChange = selectedOption => {
+    setSelectedPolicy(selectedOption.value);
+  };
+
   const handleSelectedTags = selectedTags => {
     console.log(selectedTags)
     // flatten array, get tag list
@@ -99,7 +119,10 @@ const ACM = props => {
               <div>Select App Version :</div>
           </div>
           <div className='version-select'>
-            <Select options={appVersions} />
+            <Select
+              options={appVersions}
+              onChange={handleAppVersionChange}
+            />
           </div>
         </div>
         <div className='acm__inner__policies'>
@@ -107,7 +130,10 @@ const ACM = props => {
             <span>Select Policies :</span>
           </div>
           <div className='policy-policies'>
-            <Select options={policies} />
+            <Select
+              options={policies}
+              onChange={handlePolicyChange}
+            />
           </div>
         </div>
         <div className='acm__inner__tags'>
@@ -140,6 +166,7 @@ const ACM = props => {
         <Button
           class='acm__confirm__button'
           text='Apply'
+          isActive={buttonActive}
         />
       </div>
     </div>

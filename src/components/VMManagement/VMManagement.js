@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './styles.scss';
 import Button from '../Button/Button';
-import ToggleButton from '../Button/ToggleButton';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
-import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
+import { selectOptions } from '@testing-library/user-event/dist/select-options';
 
 const VMManagement = () => {
   const [images, setImages] = useState([]);
   const [stores, setStores] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedStore, setSelectedStore] = useState(null);
+  const [buttonActive, setButtonActive] = useState(false);
 
   useEffect(() => {
     // get image list
@@ -45,6 +47,22 @@ const VMManagement = () => {
     })
   }, [])
 
+  useEffect(() => {
+    if(selectedImage && selectedStore) {
+      setButtonActive(true);
+    } else {
+      setButtonActive(false);
+    }
+  }, [selectedImage, selectedStore]);
+
+  const handleImageChange = selectedOption => {
+    setSelectedImage(selectedOption.value);
+  }
+
+  const handleStoreChange = selectedOption => {
+    setSelectedStore(selectedOption.value);
+  }
+
   return (
     <div className='vm'>
       <div className='vm__title'>
@@ -60,7 +78,10 @@ const VMManagement = () => {
               <div>Select VM to Run on Edge in Kubernetes :</div>
           </div>
           <div className='image-select'>
-            <Select options={images} />
+            <Select
+              options={images}
+              onChange={handleImageChange}
+            />
           </div>
         </div>
         <div className='vm__inner__store'>
@@ -69,7 +90,10 @@ const VMManagement = () => {
               <div>Select s Store to Apply :</div>
           </div>
           <div className='store-select'>
-            <Select options={stores} />
+            <Select
+              options={stores}
+              onChange={handleStoreChange}
+            />
           </div>
         </div>
       </div>
@@ -79,6 +103,7 @@ const VMManagement = () => {
         <Button
           class='vm__confirm__button'
           text='Apply'
+          isActive={buttonActive}
         />
       </div>
     </div>

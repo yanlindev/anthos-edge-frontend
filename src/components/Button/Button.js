@@ -4,7 +4,7 @@ import './styles.scss';
 const Button = props => {
   return (
     <div
-      className={`button ${props.class}`}
+      className={`button ${props.class} ${props.isActive ? '' : 'button--disable'}`}
     >
       {props.text}  
     </div>
