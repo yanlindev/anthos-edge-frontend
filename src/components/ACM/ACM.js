@@ -14,7 +14,7 @@ const ACM = props => {
   const [policies, setPolicies] = useState([]);
   const [tags, setTags] = useState({});
 
-  const { selectedTags } = useSelector((state) => state.cluster);
+  // const { selectedTags } = useSelector((state) => state.cluster);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -75,7 +75,13 @@ const ACM = props => {
   }, [])
 
   const handleSelectedTags = selectedTags => {
-    dispatch(updateSelectedTags())
+    console.log(selectedTags)
+    // flatten array, get tag list
+    let tags = [];
+    for (const key in selectedTags) {
+      selectedTags[key].forEach(el => tags.push(el))
+    }
+    dispatch(updateSelectedTags(tags))
   }
 
   return (

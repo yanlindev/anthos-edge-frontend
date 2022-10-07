@@ -1,16 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  selectedTags: {},
+  selectedTags: [],
 }
 
 export const clusterSlice = createSlice({
   name: 'cluster',
   initialState,
   reducers: {
-    updateSelectedTags: (state) => {
+    updateSelectedTags: (state, action) => {
       // state.value += 1
-      console.log('hi from redux')
+      state.selectedTags = JSON.parse(JSON.stringify(action.payload));
+      // console.log(state.selectedTags, 'hi from redux')
     },
     // decrement: (state) => {
     //   state.value -= 1

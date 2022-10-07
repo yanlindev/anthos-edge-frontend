@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateSelectedTags } from '../../redux/clusterSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
@@ -16,9 +17,43 @@ const Map = props => {
   const ref = useRef(null);
   // console.log(selectedTags)
 
+  const {selectedTags} = useSelector((state) => state.cluster);
+  const dispatch = useDispatch();
+
+  // if two arr have common elements
+  const checkForCommon = (arr1, arr2) => {
+    for(let i=0; i<arr1.length; i++){
+      for(let j=0; j<arr2.length; j++){
+        if(arr1[i] == arr2[j]){
+          return true;
+        }
+      }
+    }
+    return false;
+}
+
   useEffect(() => {
-    setData(mapData);
-  }, [mapWidth, mapHeight]);
+    dispatch(updateSelectedTags({}))
+  }, [])
+
+  useEffect(() => {
+    let newData = JSON.parse(JSON.stringify(mapData))
+
+    if(newData[0]) {
+      newData.forEach(cluster => {
+        const labels = cluster.labels;
+        let clusterTagList = [];
+        for (const key in labels) {
+          clusterTagList.push(labels[key])
+        }
+        console.log(selectedTags, clusterTagList)
+        
+        // if found tag in selected tag list ?
+        checkForCommon(clusterTagList, selectedTags) ? cluster.isSelected = true : cluster.isSelected = false;
+      })
+      setData(newData);
+    }
+  }, [mapWidth, mapHeight, selectedTags])
 
   useEffect(() => {
     setTimeout(() => {
@@ -98,7 +133,7 @@ const MapLabel = props => {
     <div
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex ? props.hoverIndex == index ? 'map__map__dot--active' : '' : null} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'}`}
+      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex ? props.hoverIndex == index ? 'map__map__dot--active' : '' : null} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'} ${data.isSelected ? 'is-selected' : ''}`}
       key={data.name}
       onClick={handleButtonClick ? () => handleButtonClick(index) : null}
       style={{ position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
