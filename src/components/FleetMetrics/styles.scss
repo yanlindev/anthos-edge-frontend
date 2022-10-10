@@ -5,7 +5,6 @@
   border: $grey_light 1px solid;
   border-radius: 8px;
   height: 40vh;
-  // padding: 20px;
 
   &__title {
     align-items: center;
@@ -23,7 +22,19 @@
     }
   }
 
-  &__iframe {
+  &__iframe-wrapper {
     width: 100%;
+    overflow: hidden;
+    margin-left: -48px;
+    transform: translateX(80px);
+  }
+
+  &__iframe {
+    color: red !important;
+    height: 1400px;
+    top: 30px;
+    width: 100%;
+    margin-left: -72px;
+    margin-top: -12.5%;
   }
 }

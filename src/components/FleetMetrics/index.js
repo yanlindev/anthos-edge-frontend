@@ -4,24 +4,20 @@ import './styles.scss';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 
 const FleetMetrics = () => {
+  // useEffect(() => {
+  //   document.querySelector('iframe').querySelector("div.css-keyl2d").style.color = "red";
+  // }, []);
 
   return (
     <div className='fleet-metrics'>
       <div className='fleet-metrics__title'>
         <img className='icon' src={fleetMetricsIcon} />
         <div className='text'>Fleet Metrics</div>
-        {/* <Iframe url="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1664232237716&to=1664235837716&theme=light"
-        width="640px"
-        height="320px"
-        id=""
-        className=""
-        display="block"
-        position="relative"
-        /> */}
-        {/* <iframe src="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1664232237716&to=1664235837716&theme=light" width="450" height="200" frameborder="0"></iframe> */}
-        {/* <embedded-webview src="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1664232237716&to=1664235837716&theme=light"></embedded-webview> */}
       </div>
-      <iframe src="http://35.226.31.136:3000/d-solo/7fiTefVVz/kubernetes-views-global?orgId=1&refresh=30s&from=1664907795713&to=1664911395713&panelId=77" width="450" height="200" frameborder="0"></iframe>
+      {/* <div className='fleet-metrics__iframe-wrapper'>
+        <iframe className='fleet-metrics__iframe' src="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1665119674133&to=1665123274133&theme=light"></iframe>
+      </div> */}
+      <iframe src="http://34.170.231.75:3000/d-solo/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&panelId=72" width="450" height="200" frameborder="0"></iframe>
     </div>
   )
 }
