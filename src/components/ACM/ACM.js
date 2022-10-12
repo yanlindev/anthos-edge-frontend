@@ -56,21 +56,22 @@ const ACM = () => {
     // get tag list
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
-      const data = response.data;
       let tags = {};
-      for (let [key, value] of Object.entries(JSON.parse(JSON.stringify(data[0].labels)))) {
-        tags[key] = [];
-      }
-      data.forEach(cluster => {
-        for (const key in cluster.labels) {
-          for (const tagKey in tags) {
-            if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
-              tags[tagKey].push(cluster.labels[key])
+      if(response.data) {
+        for (let [key, value] of Object.entries(JSON.parse(JSON.stringify(response.data[0].labels)))) {
+          tags[key] = [];
+        }
+        response.data.forEach(cluster => {
+          for (const key in cluster.labels) {
+            for (const tagKey in tags) {
+              if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
+                tags[tagKey].push(cluster.labels[key])
+              }
             }
           }
-        }
-      })
-      setTags(tags);
+        })
+        setTags(tags);
+      }
     })
     .catch(function (error) {
       console.log(error);
