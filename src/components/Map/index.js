@@ -15,10 +15,11 @@ const Map = props => {
   const [mapWidth, setMapWidth] = useState(0);
   const [data, setData] = useState([]);
   const ref = useRef(null);
-  // console.log(selectedTags)
 
   const {selectedTags} = useSelector((state) => state.cluster);
+  const {visibleClusters} = useSelector((state) => state.cluster);
   const dispatch = useDispatch();
+  console.log(selectedTags)
 
   // if two arr have common elements
   const checkForCommon = (arr1, arr2) => {
@@ -96,7 +97,7 @@ const Map = props => {
         onLoad={handleImageLoad}
       >
         {
-          data.map((cluster, index) => {
+          visibleClusters.map((cluster, index) => {
             return (
               <MapLabel
                 data={cluster}

@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios';
 
 const initialState = {
   selectedTags: [],
+  visibleClusters: [],
 }
 
 export const clusterSlice = createSlice({
@@ -11,11 +13,12 @@ export const clusterSlice = createSlice({
     updateSelectedTags: (state, action) => {
       // state.value += 1
       state.selectedTags = JSON.parse(JSON.stringify(action.payload));
-      // console.log(state.selectedTags, 'hi from redux')
+      console.log(state.selectedTags, 'hi from redux')
     },
-    // decrement: (state) => {
-    //   state.value -= 1
-    // },
+    updateVisibleClusters: (state, action) => {
+      state.visibleClusters = JSON.parse(JSON.stringify(action.payload));
+      // console.log(state.visibleClusters, 'hi from redux')
+    },
     // incrementByAmount: (state, action) => {
     //   state.value += action.payload
     // },
@@ -23,6 +26,6 @@ export const clusterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { updateSelectedTags } = clusterSlice.actions
+export const { updateSelectedTags, updateVisibleClusters } = clusterSlice.actions
 
 export default clusterSlice.reducer
