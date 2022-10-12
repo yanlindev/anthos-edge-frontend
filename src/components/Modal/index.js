@@ -21,16 +21,13 @@ const Modal = props => {
   }, [])
 
   const handleTerminateNode = index => {
-    axios.post('https://edge-demo-fljjthbteq-uw.a.run.app/testing/chaos/stopnode/', {
-      node_zone: nodes[index].zone,
-      node_name: nodes[index].name
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    console.log(nodes[index].name,nodes[index].zone)
+    axios.post(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/chaos/stopnode/`, null, { params: {
+      node_zone: nodes[index].name,
+      node_name: nodes[index].zone
+    }})
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
   }
 
   return (
