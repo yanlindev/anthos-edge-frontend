@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateSelectedTags } from '../../redux/clusterSlice';
+import { updateSelectedTags, updateVisibleClusters } from '../../redux/clusterSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
@@ -52,7 +52,9 @@ const Map = props => {
         // if found tag in selected tag list ?
         checkForCommon(clusterTagList, selectedTags) ? cluster.isSelected = true : cluster.isSelected = false;
       })
-      setData(newData);
+      dispatch(updateVisibleClusters(newData))
+      // dispatch(newData)
+      // setData(newData);
     }
   }, [mapWidth, mapHeight, selectedTags])
 

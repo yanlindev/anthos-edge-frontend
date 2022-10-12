@@ -17,7 +17,7 @@ export const clusterSlice = createSlice({
     },
     updateVisibleClusters: (state, action) => {
       state.visibleClusters = JSON.parse(JSON.stringify(action.payload));
-      // console.log(state.visibleClusters, 'hi from redux')
+      console.log(state.visibleClusters, 'hi from redux')
     },
     // incrementByAmount: (state, action) => {
     //   state.value += action.payload

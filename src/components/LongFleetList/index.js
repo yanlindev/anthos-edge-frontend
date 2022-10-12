@@ -9,14 +9,19 @@ import './styles.scss';
 import axios from 'axios';
 
 const LongFleetList = props => {
+  const dispatch = useDispatch();
+  const [allData, setAllData] = useState([]);
+  const { visibleClusters } = useSelector((state) => state.cluster);
+  // console.log(visibleClusters)
   const [filterList, setFilterList] = useState([]);
-  const [visibleClusters, setVisibleClusters] = useState(useSelector((state) => state.visibleClusters));
+  const [selectedFilterIndex, setSelectedFilterIndex] = useState(0);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   useEffect(() => {
     let arr = ['all'];
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
     .then(function (response) {
+      setAllData(response.data);
       // handle success
       response.data.forEach(cluster => {
         if(!arr.includes(cluster.labels.continent)) {
@@ -31,10 +36,20 @@ const LongFleetList = props => {
     })
   }, [])
 
-  const handleSelectFilter = item => {
-    console.log(props.data)
-    const filteredData = props.data.filter(cluster => cluster.continent == item)
-    setVisibleClusters(filteredData);
+  useEffect(() => {
+    return () => {
+      dispatch(updateVisibleClusters(allData))
+    };
+  }, []);
+
+  const handleSelectFilter = (item, index) => {
+    setSelectedFilterIndex(index);
+    if(item === 'all') {
+      dispatch(updateVisibleClusters(allData))
+    } else {
+      const filteredData = allData.filter(cluster => cluster.labels.continent == item)
+      dispatch(updateVisibleClusters(filteredData))
+    }
   }
 
   return (
@@ -43,17 +58,17 @@ const LongFleetList = props => {
         <div>
           <img className='icon' src={fleetInfoIcon} />
           <div className='text'>Fleet Information</div>
-          <div className='label'>{props.data.length}</div>
+          <div className='label'>{visibleClusters.length}</div>
         </div>
         <div className='btn' onClick={() => {setIsFilterVisible(!isFilterVisible)}}>
           <img src={filterIcon}/>
           <div>filter</div>
           <div className={`filter-menu ${isFilterVisible ? 'filter-menu--visible' : ''}`}>
             {
-              filterList.map(item => (
+              filterList.map((item, index) => (
                 <div
-                  className='filter-menu__item'
-                  onClick={() => handleSelectFilter(item)}
+                  className={`filter-menu__item ${index === selectedFilterIndex ? 'filter-menu__item--selected' : ''}`}
+                  onClick={() => handleSelectFilter(item, index)}
                 >{item}</div>
               ))
             }
@@ -68,21 +83,13 @@ const LongFleetList = props => {
             <th>Name</th>
             <th>Cluster</th>
             <th>Version</th>
-            {
-              props.data[0] && props.data[0].acm_status ?
-              <th>ACM Status</th> :
-              null
-            }
-            {
-              props.data[0] && props.data[0].labels ?
-              <th>Tags</th> :
-              null
-            }
+            <th>ACM Status</th>
+            <th>Tags</th>
           </tr>
         </thead>
         {
-          props.data.length > 0 ?
-          props.data.map((data, index) => (
+          visibleClusters.length > 0 ?
+          visibleClusters.map((data, index) => (
             <tbody
               onMouseEnter={props.handleHoverIndex ? () => props.handleHoverIndex(index) : null}
               onMouseLeave={props.handleHoverIndex ? () => props.handleHoverIndex(null) : null}
@@ -92,18 +99,8 @@ const LongFleetList = props => {
                 <td>{data.name}</td>
                 <td>{data.node_count}</td>
                 <td>{data.version}</td>
-                {
-                  data.acm_status ?
-                  <td>{data.acm_status}</td> :
-                  null
-                }
-                {
-                  data.labels ?
-                  <td>
-                    {Object.values(data.labels).map(label => <span className='tag'>{label}</span>)}
-                  </td> :
-                  null
-                }
+                <td>{data.acm_status}</td>
+                {Object.values(data.labels).map(label => <span className='tag'>{label}</span>)}
               </tr>
             </tbody>
           )) :

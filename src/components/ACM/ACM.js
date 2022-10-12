@@ -178,7 +178,6 @@ export default ACM;
 const TagBlock = props => {
   const {tags, tagskey, index, handleSelectedTags} = props;
   const [expanded, setExpanded] = useState(true);
-  const [isSelected, setIsSelected] = useState(false);
   const [selectedTags, setSelectedTags] = useState(tags);
 
   useEffect(() => {

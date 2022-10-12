@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateVisibleClusters } from '../../redux/clusterSlice';
 import './styles.scss';
 import ACM from '../../components/ACM/ACM';
-// import LongFleetList from '../../components/LongFleetList';
+import LongFleetList from '../../components/LongFleetList'
 import Map from '../../components/Map';
 import axios from 'axios';
 
@@ -39,10 +39,10 @@ const ControlPage = () => {
         />
         <ACM />
       </div>
-      {/* <LongFleetList
+      <LongFleetList
         data={data}
         handleHoverIndex={handleHoverIndex}
-      /> */}
+      />
     </div>
   )
 }
