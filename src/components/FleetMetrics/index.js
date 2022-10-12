@@ -2,11 +2,22 @@ import React, { useState, useEffect } from 'react';
 import Iframe from 'react-iframe';
 import './styles.scss';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
+import axios from 'axios';
 
 const FleetMetrics = () => {
-  // useEffect(() => {
-  //   document.querySelector('iframe').querySelector("div.css-keyl2d").style.color = "red";
-  // }, []);
+  const [urls, setUrls] = useState({});
+  useEffect(() => {
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/settings/fleet-monitoring')
+    .then(function (response) {
+      // handle success
+      console.log(response.data);
+      setUrls(response.data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }, [])
 
   return (
     <div className='fleet-metrics'>
@@ -14,10 +25,14 @@ const FleetMetrics = () => {
         <img className='icon' src={fleetMetricsIcon} />
         <div className='text'>Fleet Metrics</div>
       </div>
-      {/* <div className='fleet-metrics__iframe-wrapper'>
-        <iframe className='fleet-metrics__iframe' src="http://34.170.231.75:3000/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1665119674133&to=1665123274133&theme=light"></iframe>
-      </div> */}
-      <iframe src="http://34.170.231.75:3000/d-solo/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&panelId=72" width="450" height="200" frameborder="0"></iframe>
+      {/* {
+        urls.overview.map(columns => (
+          columns.map(url => (
+            <iframe src={url} width="450" height="200" frameborder="0"></iframe>
+          ))
+        ))
+      } */}
+      <iframe src='http://34.70.222.156:3000/d/UQ6us7S4k/overview?org…&from=1665452923822&to=1665474523822&viewPanel=16' width="450" height="200" frameborder="0"></iframe>
     </div>
   )
 }
