@@ -21,6 +21,30 @@ const ACM = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // get tag list
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    .then(function (response) {
+      let tags = {
+        canary: [],
+        continent: [],
+        loc: []
+      };
+      
+      response.data.forEach(cluster => {
+        for (const key in cluster.labels) {
+          for (const tagKey in tags) {
+            if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
+              tags[tagKey].push(cluster.labels[key])
+            }
+          }
+        }
+      })
+      setTags(tags);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+
     // get app version list
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/application-list')
     .then(function (response) {
@@ -48,30 +72,6 @@ const ACM = () => {
         });
       })
       setPolicies(policy_list);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-
-    // get tag list
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
-    .then(function (response) {
-      let tags = {};
-      if(response.data) {
-        for (let [key, value] of Object.entries(JSON.parse(JSON.stringify(response.data[0].labels)))) {
-          tags[key] = [];
-        }
-        response.data.forEach(cluster => {
-          for (const key in cluster.labels) {
-            for (const tagKey in tags) {
-              if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
-                tags[tagKey].push(cluster.labels[key])
-              }
-            }
-          }
-        })
-        setTags(tags);
-      }
     })
     .catch(function (error) {
       console.log(error);
@@ -178,6 +178,7 @@ export default ACM;
 
 const TagBlock = props => {
   const {tags, tagskey, index, handleSelectedTags} = props;
+  console.log(tags)
   const [expanded, setExpanded] = useState(true);
   const [selectedTags, setSelectedTags] = useState(tags);
 

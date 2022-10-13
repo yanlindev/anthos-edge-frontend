@@ -19,7 +19,6 @@ const Map = props => {
   const {selectedTags} = useSelector((state) => state.cluster);
   const {visibleClusters} = useSelector((state) => state.cluster);
   const dispatch = useDispatch();
-  console.log(selectedTags)
 
   // if two arr have common elements
   const checkForCommon = (arr1, arr2) => {
@@ -47,14 +46,11 @@ const Map = props => {
         for (const key in labels) {
           clusterTagList.push(labels[key])
         }
-        console.log(selectedTags, clusterTagList)
         
         // if found tag in selected tag list ?
         checkForCommon(clusterTagList, selectedTags) ? cluster.isSelected = true : cluster.isSelected = false;
       })
       dispatch(updateVisibleClusters(newData))
-      // dispatch(newData)
-      // setData(newData);
     }
   }, [mapWidth, mapHeight, selectedTags])
 

@@ -60,7 +60,7 @@ const LongFleetList = props => {
           <div className='text'>Fleet Information</div>
           <div className='label'>{visibleClusters.length}</div>
         </div>
-        <div className='btn' onClick={() => {setIsFilterVisible(!isFilterVisible)}}>
+        {/* <div className='btn' onClick={() => {setIsFilterVisible(!isFilterVisible)}}>
           <img src={filterIcon}/>
           <div>filter</div>
           <div className={`filter-menu ${isFilterVisible ? 'filter-menu--visible' : ''}`}>
@@ -73,7 +73,7 @@ const LongFleetList = props => {
               ))
             }
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className='table-wrapper'>
