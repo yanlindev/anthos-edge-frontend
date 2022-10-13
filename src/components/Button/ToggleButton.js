@@ -11,7 +11,7 @@ const ToggleButton = props => {
       onClick={() => setClicked(!clicked)}
     >
       <div className='inner'>
-        <span>{props.text}</span>
+        <div>{props.text}</div>
         <img src={close_button} />  
       </div>
     </div>

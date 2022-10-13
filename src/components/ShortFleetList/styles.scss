@@ -15,6 +15,11 @@
     font-size: 18px;
     padding: 25px 35px;
 
+    &-main {
+      align-items: center;
+      display: flex;
+    }
+
     .filter-menu {
       background: $white;
       border-radius: 4px;
@@ -64,22 +69,34 @@
     }
 
     .btn {
-      background: rgba($blue, .06);
-      border-radius: 4px;
       color: $blue;
       cursor: pointer;
-      padding: 10px 15px;
+      font-size: 16px;
       position: relative;
-      transition: background .2s ease-in-out;
+
+      &::after {
+        border-radius: 4px;
+        background: rgba($blue, 0.06);
+        content: "";
+        position: absolute;
+        width: 170%;
+        height: 220%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: background .2s ease-in-out;
+      }
 
       &:hover {
-        background: rgba($blue, .2);
+        &::after {
+          background: rgba($blue, .2);
+        }
       }
     }
 
     img {
       margin-right: 6px;
-      width: 15px;
+      width: 13px;
     }
 
     div {

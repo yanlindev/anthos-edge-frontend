@@ -13,7 +13,11 @@ const ACM = () => {
   const { selectedTags } = useSelector((state) => state.cluster);
   const [appVersions, setAppVersions] = useState([]);
   const [policies, setPolicies] = useState([]);
-  const [tags, setTags] = useState({});
+  const [tags, setTags] = useState({
+    'canary': [],
+    'continent': [],
+    'loc': []
+  });
   const [selectedAppVersion, setSelectedAppVersion] = useState(null);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [buttonActive, setButtonActive] = useState(false);
@@ -21,30 +25,6 @@ const ACM = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // get tag list
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
-    .then(function (response) {
-      let tags = {
-        canary: [],
-        continent: [],
-        loc: []
-      };
-      
-      response.data.forEach(cluster => {
-        for (const key in cluster.labels) {
-          for (const tagKey in tags) {
-            if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
-              tags[tagKey].push(cluster.labels[key])
-            }
-          }
-        }
-      })
-      setTags(tags);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-
     // get app version list
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/application-list')
     .then(function (response) {
@@ -76,7 +56,36 @@ const ACM = () => {
     .catch(function (error) {
       console.log(error);
     })
+
+    // get tag list
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    .then(function (response) {
+      let tags = {
+        'canary': [],
+        'continent': [],
+        'loc': []
+      };
+      
+      response.data.forEach(cluster => {
+        for (const key in cluster.labels) {
+          for (const tagKey in tags) {
+            if(key == tagKey && !tags[tagKey].includes(cluster.labels[key])) {
+              tags[tagKey].push(cluster.labels[key])
+            }
+          }
+        }
+      })
+      console.log(tags)
+      setTags({...tags});
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   }, [])
+
+  useEffect(() => {
+console.log(tags, '!!!!!')
+  }, [tags])
 
   // active button if all inputs are filled
   useEffect(() => {

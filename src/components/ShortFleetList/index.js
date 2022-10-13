@@ -54,7 +54,7 @@ const ShortFleetList = props => {
   return (
     <div className='fleet-list'>
       <div className='fleet-list__title'>
-        <div>
+        <div className='fleet-list__title-main'>
           <img className='icon' src={fleetInfoIcon} />
           <div className='text'>Fleet Information</div>
           <div className='label'>{visibleClusters.length}</div>
