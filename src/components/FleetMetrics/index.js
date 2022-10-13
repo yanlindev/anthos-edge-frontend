@@ -32,7 +32,7 @@ const FleetMetrics = () => {
           ))
         ))
       } */}
-      <iframe src='http://34.70.222.156:3000/d/UQ6us7S4k/overview?org…&from=1665452923822&to=1665474523822&viewPanel=16' width="450" height="200" frameborder="0"></iframe>
+      <iframe src='http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665653365584&to=1665674965584&theme=light&panelId=2' width="450" height="200" frameborder="0"></iframe>
     </div>
   )
 }

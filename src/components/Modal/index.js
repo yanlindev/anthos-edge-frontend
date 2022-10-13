@@ -9,24 +9,32 @@ const Modal = props => {
   const [nodes, setNodes] = useState([]);
   
   useEffect(() => {
+    fetchNodeData();
+  }, [])
+
+  const fetchNodeData = () => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/nodes/?cluster_name=${data.name}&location=${data.location}`)
     .then(function (response) {
       // handle success
+      console.log(response.data)
       setNodes(response.data);
     })
     .catch(function (error) {
       // handle error
       console.log(error);
     });
-  }, [])
+  }
 
   const handleTerminateNode = index => {
-    console.log(nodes[index].name,nodes[index].zone)
     axios.post(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/chaos/stopnode/`, null, { params: {
       node_zone: nodes[index].name,
       node_name: nodes[index].zone
     }})
-    .then(response => console.log(response))
+    .then(response => {
+      if(response.status === 200) {
+        fetchNodeData();
+      }
+    })
     .catch(err => console.log(err));
   }
 
@@ -74,16 +82,17 @@ const Modal = props => {
 
 const NodeRow = props => {
   const {data, index, handleTerminateNode} = props;
+  console.log(data)
 
   return (
-    <div className='modal__inner__content__nodes__row' key={index}>
+    <div className={`modal__inner__content__nodes__row`} key={index}>
       <div>{data.name}</div>
       <div>{data.ip}</div>
       <div>{data.instance_type}</div>
       <div
-        className='row-button'
+        className={`row-button ${data.status === 'RUNNING' ? 'row-button--running' : 'row-button--stopped'}`}
         onClick={() => handleTerminateNode(index)}
-      >Terminate</div>
+      >{data.status === 'RUNNING' ? 'Stop' : 'Start'}</div>
     </div>
   )
 }

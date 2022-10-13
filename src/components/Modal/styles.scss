@@ -91,6 +91,14 @@
             &:hover {
               opacity: .85;
             }
+
+            &--running {
+              background: #FE6B5E;
+            }
+
+            &--stopped {
+              background: #1bbd6e;
+            }
           }
         }
       }
