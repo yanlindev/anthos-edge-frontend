@@ -123,6 +123,26 @@
         }
       }
 
+      // POS
+      &__pos {
+        border: $grey_light 1px solid;
+        border-radius: 8px;
+        margin-top: 40px;
+        overflow: hidden;
+
+        &__header {
+          background: #F7F9FC;
+          border-bottom: 1px solid $grey_light;
+          font-family: 'sans-medium';
+          padding: 16px;
+        }
+
+        iframe {
+          height: 320px;
+          width: 100%;
+        }
+      }
+
       // logs
       &__logs {
         border: $grey_light 1px solid;

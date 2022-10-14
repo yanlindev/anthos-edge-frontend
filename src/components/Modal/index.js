@@ -10,6 +10,7 @@ const Modal = props => {
   const [nodes, setNodes] = useState([]);
   const [logs, setLogs] = useState([]);
   const [dashboard, setDashboard] = useState('');
+  const [POS, setPOS] = useState('');
   
   useEffect(() => {
     fetchNodeData();
@@ -46,6 +47,7 @@ const Modal = props => {
   const getDashboard = name => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/urls/?cluster_name=${name}`)
     .then(response => {
+      setPOS(response.data.pages[0]);
       setDashboard(response.data.pages[1]);
     })
     .catch(err => console.log(err));
@@ -89,9 +91,15 @@ const Modal = props => {
             }
           </div>
           <div className='modal__inner__content__dashboard'>
-            <div className='modal__inner__content__nodes__header'>In-Store Dashboard</div>
+            <div className='modal__inner__content__dashboard__header'>In-Store Dashboard</div>
             <iframe src={dashboard} frameborder="0"></iframe>
           </div>
+
+          <div className='modal__inner__content__pos'>
+            <div className='modal__inner__content__pos__header'>POS</div>
+            <iframe src={POS} frameborder="0"></iframe>
+          </div>
+
           <div className='modal__inner__content__logs'>
             <div className='modal__inner__content__logs__header'>Real-time Application Logs</div>
             <div className='modal__inner__content__logs__inner'>

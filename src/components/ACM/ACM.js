@@ -9,6 +9,7 @@ import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
 import { updateSelectedTags } from '../../redux/clusterSlice';
+import $ from "jquery";
 
 const ACM = () => {
   const { selectedTags } = useSelector((state) => state.cluster);
@@ -21,6 +22,7 @@ const ACM = () => {
   });
   const [selectedAppVersion, setSelectedAppVersion] = useState(null);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
+  const [selectedTagsInObject, setSelectedTagsInObject] = useState({});
   const [buttonActive, setButtonActive] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [versionSelectVisible, setVersionSelectVisible] = useState(true);
@@ -116,7 +118,7 @@ const ACM = () => {
   };
 
   const handleSelectedTags = selectedTags => {
-    console.log(selectedTags)
+    setSelectedTagsInObject({...selectedTags});
     // flatten array, get tag list
     let tags = [];
     for (const key in selectedTags) {
@@ -137,15 +139,69 @@ const ACM = () => {
   }
 
   const handleSubmit = () => {
-    const test = {
-      pos_version: "pos_v1",
-      policies: ["policy1"],
-      labels: {
-          continent: ["central"],
-          canary: ["value"],
-          loc: ["value"],
-      }
-    }
+    // console.log([selectedAppVersion], [selectedPolicy], selectedTagsInObject)
+    // axios.post(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy`)
+    // .then(response => {
+    //   console.log(response)
+    //   if(response.status === 200) {
+    //     // fetchNodeData();
+    //   }
+    // })
+    // .catch(err => console.log(err));
+    var formdata = new FormData();
+//add three variable to form
+formdata.append("app_version", "1234");
+formdata.append("labels", {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]});
+// formdata.append("rate", "4");
+
+// axios.post("https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy", formdata)
+      
+    axios({
+      method: 'post',     //put
+      url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy?app_version=pos_v2&policy_name=NA`,
+      app_version: 'Keshav',
+      data: {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]}
+    }).then(res => console.log(res));
+
+    // axios({
+    //   method: 'post',
+    //   url: 'https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy',
+    //   body: selectedTagsInObject
+    // }).then(response => {
+    //   console.log(response)
+    //   if(response.status === 200) {
+    //     // fetchNodeData();
+    //   }
+    // })
+    // .catch(err => console.log(err));
+    // const data = {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]}
+    // $.ajax({
+    //   url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy`,
+    //   type: 'POST',
+    //   // app_version: 'test',
+    //   params: {
+    //     app_version: 'test'
+    //   },
+    //   data,
+    //   // dataType: 'json',
+    //   headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    //   success: function(data){
+    //     console.log("succeeded");
+    //   },
+    //   error: function(){
+    //     console.log("failed");
+    //   },
+    // });
+    // axios.post('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy', {
+    //   // policy_name: 'test',
+    //   body: {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]}
+    // })
+    //   .then((response) => {
+    //   console.log(response)
+    // })
+    //   .catch((error) => {
+    //   console.log(error);
+    // })
   }
 
   const tabs = ['Update App Version', 'Update Policy']
@@ -253,7 +309,6 @@ export default ACM;
 
 const TagBlock = props => {
   const {tags, tagskey, index, handleSelectedTags} = props;
-  console.log(tags)
   const [expanded, setExpanded] = useState(true);
   const [selectedTags, setSelectedTags] = useState(tags);
 
