@@ -14,7 +14,7 @@ import axios from 'axios';
 const ShortFleetList = props => {
   const dispatch = useDispatch();
   const [allData, setAllData] = useState([]);
-  const { visibleClusters } = useSelector((state) => state.cluster);
+  const {visibleClusters} = useSelector((state) => state.cluster);
   const [filterList, setFilterList] = useState([]);
   const [selectedFilterIndex, setSelectedFilterIndex] = useState(0);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -23,6 +23,7 @@ const ShortFleetList = props => {
   const [continentList, setContinentList] = useState([]);
   const [canaryList, setCanaryList] = useState([]);
   const [groupedData, setGroupedData] = useState({});
+  const [filterButtonVisible, setFilterButtonVisible] = useState(true);
 
   useEffect(() => {
     let arr = ['all'];
@@ -89,7 +90,12 @@ const ShortFleetList = props => {
   }, [activeGroupSelector, isGrouped, allData]);
 
   useEffect(() => {
-    console.log(groupedData)
+    if(isGrouped) {
+      setFilterButtonVisible(false);
+      dispatch(updateVisibleClusters(allData));
+    } else {
+      setFilterButtonVisible(true);
+    }
   }, [isGrouped]);
 
   useEffect(() => {
@@ -98,24 +104,13 @@ const ShortFleetList = props => {
     };
   }, []);
 
-  const groupByContinent = () => {
-    const data = {
-      asia: [],
-      europe: []
-    }
-  }
-
-  const groupByCanary = () => {
-    
-  }
-
   const handleSelectFilter = (item, index) => {
     setSelectedFilterIndex(index);
     if(item === 'all') {
-      dispatch(updateVisibleClusters(allData))
+      dispatch(updateVisibleClusters(allData));
     } else {
       const filteredData = allData.filter(cluster => cluster.labels.continent == item)
-      dispatch(updateVisibleClusters(filteredData))
+      dispatch(updateVisibleClusters(filteredData));
     }
   }
 
@@ -135,7 +130,7 @@ const ShortFleetList = props => {
           <div className='text'>Fleet Information</div>
           <div className='label'>{visibleClusters.length}</div>
         </div>
-        <div className='btn' onClick={() => {setIsFilterVisible(!isFilterVisible)}}>
+        <div className={`btn ${filterButtonVisible ? '' : 'is-disabled'}`} onClick={() => {setIsFilterVisible(!isFilterVisible)}}>
           <img src={filterIcon}/>
           <div>filter</div>
           <div className={`filter-menu ${isFilterVisible ? 'filter-menu--visible' : ''}`}>

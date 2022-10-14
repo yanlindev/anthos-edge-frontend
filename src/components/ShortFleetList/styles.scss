@@ -94,6 +94,19 @@
           background: rgba($blue, .2);
         }
       }
+
+      &.is-disabled {
+        color: rgba($grey, .7);
+        pointer-events: none;
+
+        &::after {
+          background: rgba($grey_light, .3);
+        }
+
+        img {
+          filter: grayscale(80%);
+        }
+      }
     }
 
     img {
@@ -114,7 +127,7 @@
     }
 
     .label {
-      background: #E0E5F9;
+      background: rgba($blue, .14);
       border-radius: 40px;
       color: $blue;
       font-size: 12px;
