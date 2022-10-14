@@ -21,6 +21,9 @@ const ACM = () => {
   const [selectedAppVersion, setSelectedAppVersion] = useState(null);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [buttonActive, setButtonActive] = useState(false);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [versionSelectVisible, setVersionSelectVisible] = useState(true);
+  const [policySelectVisible, setPolicySelectVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -44,7 +47,10 @@ const ACM = () => {
     // get policy list
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/policy_list')
     .then(function (response) {
-      let policy_list = [];
+      let policy_list = [{
+        value: '',
+        label: 'Select'
+      }];
       response.data.forEach(data => {
         policy_list.push({
           value: data.name,
@@ -83,18 +89,24 @@ const ACM = () => {
     })
   }, [])
 
-  useEffect(() => {
-console.log(tags, '!!!!!')
-  }, [tags])
-
   // active button if all inputs are filled
   useEffect(() => {
-    if(selectedAppVersion && selectedPolicy && selectedTags.length > 0) {
-      setButtonActive(true);
-    } else {
-      setButtonActive(false);
+    if(activeTabIndex === 0) {
+      if(selectedAppVersion && selectedTags.length > 0) {
+        setButtonActive(true);
+      } else {
+        setButtonActive(false);
+      }
     }
-  }, [selectedAppVersion, selectedPolicy, selectedTags])
+
+    if(activeTabIndex === 1) {
+      if(selectedPolicy && selectedTags.length > 0) {
+        setButtonActive(true);
+      } else {
+        setButtonActive(false);
+      }
+    }
+  }, [selectedAppVersion, selectedPolicy, selectedTags, activeTabIndex])
 
   const handleAppVersionChange = selectedOption => {
     setSelectedAppVersion(selectedOption.value);
@@ -114,6 +126,19 @@ console.log(tags, '!!!!!')
     dispatch(updateSelectedTags(tags))
   }
 
+  const handleTabClick = index => {
+    setActiveTabIndex(index);
+    if(index === 0) {
+      setVersionSelectVisible(true);
+      setPolicySelectVisible(false);
+    } else {
+      setVersionSelectVisible(false);
+      setPolicySelectVisible(true);
+    }
+  }
+
+  const tabs = ['Update App Version', 'Update Policy']
+
   return (
     <div className='acm'>
       <div className='acm__title'>
@@ -122,11 +147,21 @@ console.log(tags, '!!!!!')
       </div>
       <div className='acm__subtitle'>Upgrade/Downgrade application version</div>
 
+      <div className='acm__tabs'>
+        {
+          tabs.map((tab, index) => (
+            <div
+              className={`acm__tab ${index === activeTabIndex ? 'acm__tab--active' : ''}`}
+              onClick={() => {handleTabClick(index)}}>{tab}</div>
+          ))
+        }
+      </div>
+
       <div className='acm__inner'>
-        <div className='acm__inner__version'>
+        <div className={`acm__inner__version ${versionSelectVisible ? '' : 'acm__inner__version--hidden'}`}>
           <div className='version-title'>
-              <div className='version-title__line'></div>
-              <div>Select App Version :</div>
+            <div className='version-title__line'></div>
+            <div>Select App Version :</div>
           </div>
           <div className='version-select'>
             <Select
@@ -135,7 +170,7 @@ console.log(tags, '!!!!!')
             />
           </div>
         </div>
-        <div className='acm__inner__policies'>
+        <div className={`acm__inner__policies ${policySelectVisible ? '' : 'acm__inner__policies--hidden'}`}>
           <div className='policy-title'>
             <span>Select Policies :</span>
           </div>

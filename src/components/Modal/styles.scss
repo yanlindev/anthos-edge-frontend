@@ -112,16 +112,14 @@
 
         &__header {
           background: #F7F9FC;
+          border-bottom: 1px solid $grey_light;
           font-family: 'sans-medium';
           padding: 16px;
         }
 
         iframe {
+          height: 320px;
           width: 100%;
-
-          html, body, div {
-            background: #e97c7c !important;
-          }
         }
       }
 
@@ -134,15 +132,63 @@
 
         &__header {
           background: #F7F9FC;
+          border-bottom: 1px solid $grey_light;
           font-family: 'sans-medium';
           padding: 16px;
         }
 
-        iframe {
-          width: 100%;
+        &__inner {
+          max-height: 330px;
+          overflow-y: scroll;
+        }
 
-          html, body, div {
-            background: #e97c7c !important;
+        &__log {
+          color: $grey;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba($grey_light, .4);
+          }
+
+          &:not(:first-of-type) {
+            border-top: $grey_light 1px solid;
+          }
+
+          &__title {
+            display: flex;
+            padding: 14px 20px;
+            // justify-content: space-between;
+
+            .severity {
+              flex-basis: 24%;
+            }
+
+            .timestamp {
+              flex-grow: 3;
+            }
+
+            .icon {
+              transition: transform .2s ease-in-out;
+            }
+          }
+
+          &__data {
+            background: $white;
+            display: none;
+            line-height: 1.2;
+            padding: 20px;
+            background: #3d3d3d;
+            color: #d1d1d1;
+          }
+
+          &.is-expanded {
+            .modal__inner__content__logs__log__data {
+              display: block;
+            }
+
+            .icon {
+              transform: rotate(180deg);
+            }
           }
         }
       }

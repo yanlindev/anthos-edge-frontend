@@ -31,6 +31,48 @@
     padding: 0 0 25px 45px;
   }
 
+  &__tabs {
+    border-bottom: 1px solid $grey_light;
+    color: $grey;
+    display: flex;
+    font-size: 15px;
+    padding: 0 40px;
+
+    .acm__tab {
+      cursor: pointer;
+      padding: 22px 0;
+      position: relative;
+      transition: color .15s ease-in-out;
+
+      &::after {
+        background-color: $blue;
+        bottom: 0;
+        content: '';
+        display: none;
+        height: 3px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+
+      &:hover {
+        color: $blue;
+      }
+
+      &:not(:first-of-type) {
+        margin-left: 20px;
+      }
+
+      &--active {
+        color: $blue;
+
+        &::after {
+          display: block;
+        }
+      }
+    }
+  }
+
   &__inner {
     color: $grey;
     font-size: 14px;
@@ -40,6 +82,7 @@
 
     &__version {
       border-bottom: 1px rgba($grey_light, .5) solid;
+      margin-top: 10px;
       padding: 25px 0;
 
       .version-title {
@@ -67,10 +110,15 @@
           cursor: pointer;
         }
       }
+
+      &--hidden {
+        display: none;
+      }
     }
 
     &__policies {
       border-bottom: 1px rgba($grey_light, .5) solid;
+      margin-top: 10px;
       padding: 25px 0;
 
       .policy-title {
@@ -112,6 +160,10 @@
         .toggle-button {
           margin: 4px 6px 6px 0;
         }
+      }
+
+      &--hidden {
+        display: none;
       }
     }
 
