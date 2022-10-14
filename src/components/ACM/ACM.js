@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import LoadingBar from 'react-top-loading-bar';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import './styles.scss';
@@ -24,6 +25,7 @@ const ACM = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [versionSelectVisible, setVersionSelectVisible] = useState(true);
   const [policySelectVisible, setPolicySelectVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -134,6 +136,10 @@ const ACM = () => {
     }
   }
 
+  const handleSubmit = () => {
+    console.log('oo')
+  }
+
   const tabs = ['Update App Version', 'Update Policy']
 
   const links = {
@@ -151,6 +157,12 @@ const ACM = () => {
 
   return (
     <div className='acm'>
+      <LoadingBar
+        color='#f11946'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+
       <div className='acm__title'>
         <img className='icon' src={fleetMetricsIcon} />
         <div className='text'>ACM Fleet Management</div>
@@ -222,6 +234,7 @@ const ACM = () => {
           class='acm__confirm__button'
           text='Apply'
           isActive={buttonActive}
+          handleClick={handleSubmit}
         />
       </div>
     </div>

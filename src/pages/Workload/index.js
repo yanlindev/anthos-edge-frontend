@@ -26,6 +26,7 @@ const WorkloadPage = () => {
         <Map
           data={data}
           // hoverIndex={hoverIndex}
+          modalClickable={false}
         />
         <VMManagement />
       </div>

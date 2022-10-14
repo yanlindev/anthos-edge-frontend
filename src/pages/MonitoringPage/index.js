@@ -10,11 +10,12 @@ import axios from 'axios';
 
 const MonitoringPage = () => {
   const dispatch = useDispatch();
+  const {clusterOnClick} = useSelector((state) => state.cluster);
   const [modalOpen, setModalOpen] = useState(false);
   const [data, setData] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null);
-  const [fleetData, setFleetData] = useState([]);
+  // const [fleetData, setFleetData] = useState([]);
 
   useEffect(() => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
@@ -30,48 +31,48 @@ const MonitoringPage = () => {
   }, [])
 
   const handleOpenModal = index => {
-    setActiveIndex(index);
+    console.log(clusterOnClick)
+    // setActiveIndex(index);
     setModalOpen(true);
   }
+
+  useEffect(() => {
+    if(clusterOnClick) {
+      setModalOpen(true);
+    }
+  }, [clusterOnClick])
 
   const handleCloseModal = () => {
     setActiveIndex(null);
     setModalOpen(false);
   }
 
-  const handleHoverIndex = index => {
-    setHoverIndex(index);
-  }
-
   // get fleet data
-  useEffect(() => {
-    let fleetData = data.map(data => {
-      const {name, node_count, version} = data;
-      const continent = data.labels.continent;
-      return {name, node_count, version, continent};
-    });
-    setFleetData(fleetData);
-  }, [data])
+  // useEffect(() => {
+  //   let fleetData = data.map(data => {
+  //     const {name, node_count, version} = data;
+  //     const continent = data.labels.continent;
+  //     return {name, node_count, version, continent};
+  //   });
+  //   setFleetData(fleetData);
+  // }, [data])
 
   return (
     <div className='monitoring-page'>
       <Map
         data={data}
-        handleButtonClick={handleOpenModal}
-        hoverIndex={hoverIndex}
+        modalClickable={true}
       />
       <div className='monitoring-page__panel'>
         <ShortFleetList
           data={data}
-          handleHoverIndex={handleHoverIndex}
-          handleButtonClick={handleOpenModal}
         />
         <FleetMetrics />
       </div>
       {
         modalOpen ?
         <Modal
-          data={data[activeIndex]}
+          data={data.find(el => el.name === clusterOnClick)}
           handleClose={handleCloseModal}
         /> :
         null

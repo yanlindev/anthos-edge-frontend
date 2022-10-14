@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateSelectedTags, updateVisibleClusters } from '../../redux/clusterSlice';
+import { updateSelectedTags, updateVisibleClusters, updateClusterOnClick } from '../../redux/clusterSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import map_cursor from '../../assets/images/map_cursor.svg';
@@ -18,6 +18,7 @@ const Map = props => {
 
   const {selectedTags} = useSelector((state) => state.cluster);
   const {visibleClusters} = useSelector((state) => state.cluster);
+  const {clusterOnHover} = useSelector((state) => state.cluster);
   const dispatch = useDispatch();
 
   // if two arr have common elements
@@ -101,10 +102,10 @@ const Map = props => {
                 data={cluster}
                 dataReady={dataReady}
                 index={index}
-                hoverIndex={props.hoverIndex ? props.hoverIndex : null}
+                clusterOnHover={clusterOnHover}
                 mapWidth={mapWidth}
                 mapHeight={mapHeight}
-                handleButtonClick={props.handleButtonClick}
+                modalClickable={props.modalClickable}
               />
             )
           })
@@ -122,8 +123,9 @@ const Map = props => {
 export default Map;
 
 const MapLabel = props => {
-  const {data, dataReady, handleButtonClick, index, mapWidth, mapHeight} = props;
+  const {data, dataReady, clusterOnHover, modalClickable, handleButtonClick, index, mapWidth, mapHeight} = props;
   const [active, setActive] = useState(false);
+  const dispatch = useDispatch();
 
   const lat = parseFloat(getCoordinate(data.lat_long).lat);
   const lng = parseFloat(getCoordinate(data.lat_long).lng);
@@ -132,9 +134,9 @@ const MapLabel = props => {
     <div
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${props.hoverIndex ? props.hoverIndex == index ? 'map__map__dot--active' : '' : null} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'} ${data.isSelected ? 'is-selected' : ''}`}
+      className={`map__map__dot ${dataReady ? 'map__map__dot--visible' : ''} ${active ? 'map__map__dot--active' : ''} ${clusterOnHover ? clusterOnHover === data.name ? 'map__map__dot--active' : '' : null} ${data.cluster_state == 'READY' ? 'is-ready' : 'is-offline'} ${data.isSelected ? 'is-selected' : ''}`}
       key={data.name}
-      onClick={handleButtonClick ? () => handleButtonClick(index) : null}
+      onClick={modalClickable ? () => dispatch(updateClusterOnClick(data.name)) : () => {return}}
       style={{ position: 'absolute', left: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).x/mapWidth*100}%`, top: `${latLonToOffsets(lat, lng, mapWidth, mapHeight).y/mapHeight*100}%`}}
     >
       <div className='map__map__dot-label'>

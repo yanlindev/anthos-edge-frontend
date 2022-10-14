@@ -36,6 +36,7 @@ const ControlPage = () => {
         <Map
           data={data}
           hoverIndex={hoverIndex}
+          modalClickable={false}
         />
         <ACM />
       </div>

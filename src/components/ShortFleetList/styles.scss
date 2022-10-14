@@ -335,12 +335,13 @@
         border-top: 7px solid $blue;
         left: 12px;
         top: 23px;
+        transform: rotate(180deg);
         transition: transform .3s ease-in-out;
       }
 
       &.is-hidden {
         &::after {
-          transform: rotate(180deg);
+          transform: rotate(0);
         }
       }
     }

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateVisibleClusters } from '../../redux/clusterSlice';
+import { updateVisibleClusters, updateClusterOnHover } from '../../redux/clusterSlice';
 import fleetInfoIcon from '../../assets/images/fleetInfo.svg';
-import filterIcon from '../../assets/images/filter_icon.svg';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
@@ -91,9 +90,8 @@ const LongFleetList = props => {
           visibleClusters.length > 0 ?
           visibleClusters.map((data, index) => (
             <tbody
-              onMouseEnter={props.handleHoverIndex ? () => props.handleHoverIndex(index) : null}
-              onMouseLeave={props.handleHoverIndex ? () => props.handleHoverIndex(null) : null}
-              onClick={props.handleButtonClick ? () => props.handleButtonClick(index) : null}
+              onMouseEnter={() => dispatch(updateClusterOnHover(data.name))}
+              onMouseLeave={() => dispatch(updateClusterOnHover(''))}
             >
               <tr>
                 <td>{data.name}</td>

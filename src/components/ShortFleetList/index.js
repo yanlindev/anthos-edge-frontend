@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateVisibleClusters } from '../../redux/clusterSlice';
+import { updateVisibleClusters, updateClusterOnHover, updateClusterOnClick } from '../../redux/clusterSlice';
 import fleetInfoIcon from '../../assets/images/fleetInfo.svg';
 import filterIcon from '../../assets/images/filter_icon.svg';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -11,7 +10,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
 import axios from 'axios';
 
-const ShortFleetList = props => {
+const ShortFleetList = () => {
   const dispatch = useDispatch();
   const [allData, setAllData] = useState([]);
   const {visibleClusters} = useSelector((state) => state.cluster);
@@ -169,14 +168,17 @@ const ShortFleetList = props => {
         {
           isGrouped ? 
           Object.keys(groupedData).map((key, index) => (
-            <GroupedClusters groupedData={groupedData} groupLabel={key} />
+            <GroupedClusters
+              groupedData={groupedData}
+              groupLabel={key}
+            />
           )) :
           visibleClusters.length > 0 ?
           visibleClusters.map((data, index) => (
             <tbody
-              onMouseEnter={props.handleHoverIndex ? () => props.handleHoverIndex(index) : null}
-              onMouseLeave={props.handleHoverIndex ? () => props.handleHoverIndex(null) : null}
-              onClick={props.handleButtonClick ? () => props.handleButtonClick(index) : null}
+              onMouseEnter={() => dispatch(updateClusterOnHover(data.name))}
+              onMouseLeave={() => dispatch(updateClusterOnHover(''))}
+              onClick={() => dispatch(updateClusterOnClick(data.name))}
             >
               <tr>
                 <td>{data.name}</td>
@@ -200,6 +202,7 @@ const ShortFleetList = props => {
 const GroupedClusters = props => {
   const [expanded, setExpanded] = useState(false);
   const {groupedData, groupLabel} = props;
+  const dispatch = useDispatch();
 
   return (
     <Fragment>
@@ -209,24 +212,20 @@ const GroupedClusters = props => {
         <td></td>
       </tr>
       {
-        <Fragment>
-          {
-            groupedData[groupLabel].map((data, index) => (
-              <tbody
-                className={`group-label__content ${expanded ? '' : 'is-hidden'}`}
-                onMouseEnter={props.handleHoverIndex ? () => props.handleHoverIndex(index) : null}
-                onMouseLeave={props.handleHoverIndex ? () => props.handleHoverIndex(null) : null}
-                onClick={props.handleButtonClick ? () => props.handleButtonClick(index) : null}
-              >
-                <tr>
-                  <td>{data.name}</td>
-                  <td>{data.node_count}</td>
-                  <td>{data.version}</td>
-                </tr>
-              </tbody>
-            ))
-          }
-        </Fragment>
+        groupedData[groupLabel].map((data, index) => (
+          <tbody
+            className={`group-label__content ${expanded ? '' : 'is-hidden'}`}
+            onMouseEnter={() => dispatch(updateClusterOnHover(data.name))}
+            onMouseLeave={() => dispatch(updateClusterOnHover(''))}
+            onClick={() => dispatch(updateClusterOnClick(data.name))}
+          >
+            <tr>
+              <td>{data.name}</td>
+              <td>{data.node_count}</td>
+              <td>{data.version}</td>
+            </tr>
+          </tbody>
+        ))
       }
     </Fragment>
   )
