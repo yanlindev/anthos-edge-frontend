@@ -137,7 +137,15 @@ const ACM = () => {
   }
 
   const handleSubmit = () => {
-    console.log('oo')
+    const test = {
+      pos_version: "pos_v1",
+      policies: ["policy1"],
+      labels: {
+          continent: ["central"],
+          canary: ["value"],
+          loc: ["value"],
+      }
+    }
   }
 
   const tabs = ['Update App Version', 'Update Policy']

@@ -91,6 +91,8 @@ const ShortFleetList = () => {
   useEffect(() => {
     if(isGrouped) {
       setFilterButtonVisible(false);
+      setSelectedFilterIndex(0);
+      setIsFilterVisible(false);
       dispatch(updateVisibleClusters(allData));
     } else {
       setFilterButtonVisible(true);
@@ -99,7 +101,8 @@ const ShortFleetList = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(updateVisibleClusters(allData))
+      dispatch(updateVisibleClusters(allData));
+      dispatch(updateClusterOnClick(''))
     };
   }, []);
 
