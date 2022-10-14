@@ -1,6 +1,6 @@
 @import '../../scss/variables.scss';
 
-.fleet-list {
+.short-fleet-list {
   background: white;
   border: $grey_light 1px solid;
   border-radius: 8px;
@@ -9,6 +9,7 @@
 
   &__title {
     align-items: center;
+    border-bottom: 1px solid $grey_light;
     display: flex;
     justify-content: space-between;
     // font-family: 'sans-medium';
@@ -122,6 +123,47 @@
     }
   }
 
+  &__group-selectors {
+    align-items: center;
+    border-bottom: 1px solid $grey_light;
+    display: flex;
+    padding: 12px 35px;
+
+    .short-fleet-list__group-label {
+      margin-right: 12px;
+    }
+
+    .short-fleet-list__group-selector {
+      border: 1.4px solid $grey_light;
+      border-radius: 45px;
+      color: $grey_light;
+      font-size: 13px;
+      margin-right: 13px;
+      padding: 8px 21px;
+      pointer-events: none;
+    }
+
+    &.is-active {
+      .short-fleet-list__group-selector {
+        border: 1.4px solid $blue;
+        color: $blue;
+        cursor: pointer;
+        pointer-events: visible;
+        transition: background .15s ease-in-out;
+
+        &:hover {
+          background: rgba($blue, .1);
+        }
+
+        &.is-selected {
+          background: $blue;
+          color: $white;
+        }
+      }
+    }
+  }
+
+
   &__subtitle {
     border-bottom: 1px solid $grey_light;
     display: flex;
@@ -171,8 +213,7 @@
     // tr:hover {background-color: rgb(232, 235, 238);}
     
     th {
-      padding-top: 12px;
-      padding-bottom: 25px;
+      padding: 16px 0;
       text-align: left;
       background-color: $white;
       color: $black;
@@ -240,6 +281,39 @@
             }
           }
         }
+      }
+    }
+
+    .group-label {
+      border-top: 1px solid $grey_light;
+      color: $blue;
+      // display: flex;
+      font-size: 16px;
+      padding: 16px 35px;
+      position: relative;
+
+      td:first-of-type {
+        display: flex;
+      }
+
+      &__quantity {
+        background-color: rgba($blue, .14);
+        border-radius: 45px;
+        font-size: 12px;
+        margin-left: 10px;
+        padding: 2px 10px;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7px solid $blue;
+        left: 12px;
+        top: 23px;
       }
     }
   }

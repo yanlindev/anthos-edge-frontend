@@ -47,10 +47,7 @@ const ACM = () => {
     // get policy list
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/policy_list')
     .then(function (response) {
-      let policy_list = [{
-        value: '',
-        label: 'Select'
-      }];
+      let policy_list = [];
       response.data.forEach(data => {
         policy_list.push({
           value: data.name,
@@ -138,6 +135,19 @@ const ACM = () => {
   }
 
   const tabs = ['Update App Version', 'Update Policy']
+
+  const links = {
+    overview: [
+      [
+        ['http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732213235&to=1665753813235&panelId=2', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732261737&to=1665753861737&panelId=4'],
+        ['http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732283257&to=1665753883257&panelId=6', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732300508&to=1665753900508&panelId=10'],
+        ['http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732316626&to=1665753916626&panelId=13', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732331969&to=1665753931969&panelId=12', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732348197&to=1665753948198&panelId=14'],
+        []
+      ],
+      [],
+      []
+    ]
+  }
 
   return (
     <div className='acm'>
