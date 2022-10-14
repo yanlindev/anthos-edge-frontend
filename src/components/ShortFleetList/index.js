@@ -203,21 +203,22 @@ const ShortFleetList = props => {
 }
 
 const GroupedClusters = props => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const {groupedData, groupLabel} = props;
 
   return (
     <Fragment>
-      <tr className='group-label' onClick={() => {setExpanded(!expanded)}}>
-        <td>{groupLabel}<span className='group-label__quantity'>{groupedData[groupLabel].length}</span></td>
+      <tr className={`group-label ${expanded ? '' : 'is-hidden'}`} onClick={() => {setExpanded(!expanded)}}>
+        <td>{groupLabel.charAt(0).toUpperCase() + groupLabel.slice(1)}<span className='group-label__quantity'>{groupedData[groupLabel].length}</span></td>
         <td></td>
         <td></td>
       </tr>
       {
-        <Fragment style={{visibility: expanded ? 'visible' : 'hidden'}}>
+        <Fragment>
           {
             groupedData[groupLabel].map((data, index) => (
               <tbody
+                className={`group-label__content ${expanded ? '' : 'is-hidden'}`}
                 onMouseEnter={props.handleHoverIndex ? () => props.handleHoverIndex(index) : null}
                 onMouseLeave={props.handleHoverIndex ? () => props.handleHoverIndex(null) : null}
                 onClick={props.handleButtonClick ? () => props.handleButtonClick(index) : null}
