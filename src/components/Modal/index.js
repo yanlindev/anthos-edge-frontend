@@ -98,7 +98,7 @@ const Modal = props => {
 
           <div className='modal__inner__content__pos'>
             <div className='modal__inner__content__pos__header'>POS</div>
-            <iframe src='http://34.145.81.45/'></iframe>
+            <iframe src={POS}></iframe>
           </div>
 
           <div className='modal__inner__content__logs'>

@@ -8,6 +8,14 @@
   overflow: hidden;
   position: relative;
 
+  &__success {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+
   &__title {
     align-items: center;
     display: flex;

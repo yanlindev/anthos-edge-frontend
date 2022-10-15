@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoadingBar from 'react-top-loading-bar';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import './styles.scss';
@@ -288,6 +290,10 @@ const ACM = () => {
       </div>
 
       <div className='acm__confirm'>
+      <Alert severity="success" className='acm__success'>
+        <AlertTitle>Success</AlertTitle>
+        This is a success alert — <strong>check it out!</strong>
+      </Alert>
         <a className='acm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
         <Button
           class='acm__confirm__button'
