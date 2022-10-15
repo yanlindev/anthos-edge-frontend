@@ -47,6 +47,7 @@ const Modal = props => {
   const getDashboard = name => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/urls/?cluster_name=${name}`)
     .then(response => {
+      console.log(response.data)
       setPOS(response.data.pages[0]);
       setDashboard(response.data.pages[1]);
     })
@@ -97,7 +98,7 @@ const Modal = props => {
 
           <div className='modal__inner__content__pos'>
             <div className='modal__inner__content__pos__header'>POS</div>
-            <iframe src={POS} frameborder="0"></iframe>
+            <iframe src='http://34.145.81.45/'></iframe>
           </div>
 
           <div className='modal__inner__content__logs'>

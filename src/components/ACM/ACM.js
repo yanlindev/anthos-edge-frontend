@@ -139,29 +139,24 @@ const ACM = () => {
   }
 
   const handleSubmit = () => {
-    // console.log([selectedAppVersion], [selectedPolicy], selectedTagsInObject)
-    // axios.post(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy`)
-    // .then(response => {
-    //   console.log(response)
-    //   if(response.status === 200) {
-    //     // fetchNodeData();
-    //   }
-    // })
-    // .catch(err => console.log(err));
-    var formdata = new FormData();
-//add three variable to form
-formdata.append("app_version", "1234");
-formdata.append("labels", {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]});
-// formdata.append("rate", "4");
+    let param;
+    if(activeTabIndex === 0) {
+      param = `app_version=${selectedAppVersion}`
+    } else {
+      param = `policy_name=${selectedPolicy}`
+    }
 
-// axios.post("https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy", formdata)
-      
     axios({
-      method: 'post',     //put
-      url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy?app_version=pos_v2&policy_name=NA`,
-      app_version: 'Keshav',
-      data: {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]}
-    }).then(res => console.log(res));
+      method: 'post',
+      url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy?${param}`,
+      data: selectedTagsInObject
+    })
+    .then(response => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 
     // axios({
     //   method: 'post',
