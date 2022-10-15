@@ -11,7 +11,6 @@ import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
 import { updateSelectedTags } from '../../redux/clusterSlice';
-import $ from "jquery";
 
 const ACM = () => {
   const { selectedTags } = useSelector((state) => state.cluster);
@@ -30,6 +29,7 @@ const ACM = () => {
   const [versionSelectVisible, setVersionSelectVisible] = useState(true);
   const [policySelectVisible, setPolicySelectVisible] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -154,7 +154,13 @@ const ACM = () => {
       data: selectedTagsInObject
     })
     .then(response => {
-      console.log(response)
+      setSubmitSuccess(true);
+      setButtonActive(false);
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        setButtonActive(true);
+        window.location.reload(false);
+      }, 3000);
     })
     .catch((error) => {
       console.log(error);
@@ -290,10 +296,11 @@ const ACM = () => {
       </div>
 
       <div className='acm__confirm'>
-      <Alert severity="success" className='acm__success'>
-        <AlertTitle>Success</AlertTitle>
-        This is a success alert — <strong>check it out!</strong>
-      </Alert>
+        <Alert severity="success" className={`acm__success ${submitSuccess ? 'is-visible' : ''}`}>
+          <AlertTitle>Success</AlertTitle>
+          <strong>{activeTabIndex === 0 ? 'App Version' : 'Policy'}</strong> has been updated successfully!
+        </Alert>
+
         <a className='acm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
         <Button
           class='acm__confirm__button'
