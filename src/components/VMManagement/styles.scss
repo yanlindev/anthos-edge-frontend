@@ -141,8 +141,16 @@
     position: absolute;
 
     &__link {
+      align-items: center;
       color: $blue;
+      display: flex;
+      font-size: 14px;
       text-decoration: none;
+
+      span img {
+        width: 24px;
+        transform: translateY(1px);
+      }
     }
 
     &__button {

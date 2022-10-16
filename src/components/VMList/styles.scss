@@ -112,10 +112,6 @@
         background-color: rgba(#FFA726, .5);;
       }
     }
-    
-    td, th {
-      // border: 1px solid $grey_light;
-    }
 
     td {
       padding: 18px 8px;
@@ -153,7 +149,6 @@
 
     tbody {
       background-color: #eff2fa;
-      cursor: pointer;
       transition: all .15s ease-in-out;
 
       &:not(:first-of-type) {
@@ -162,15 +157,6 @@
 
       &:nth-child(even) {
         background-color: #F7FAFF;
-      }
-      
-      &:hover {
-        color: $blue;
-        text-decoration: underline;
-
-        // tr td {
-        //   opacity: 1;
-        // }
       }
 
       tr {

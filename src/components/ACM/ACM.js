@@ -9,6 +9,7 @@ import './styles.scss';
 import Button from '../Button/Button';
 import ToggleButton from '../Button/ToggleButton';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
+import arrowOutwardIcon from '../../assets/images/arrow_outward.svg';
 import acm_arrow_icon from '../../assets/images/acm-arrow.svg';
 import axios from 'axios';
 import { updateSelectedTags } from '../../redux/clusterSlice';
@@ -32,6 +33,7 @@ const ACM = () => {
   const [progress, setProgress] = useState(0);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitOnClick, setSubmitOnClick] = useState(false);
+  const [githubURL, setGithubURL] = useState('');
 
   const dispatch = useDispatch();
 
@@ -90,7 +92,16 @@ const ACM = () => {
     })
     .catch(function (error) {
       console.log(error);
+    });
+
+    // get Github URL list
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/repo')
+    .then(function (response) {
+      setGithubURL(response.data.url);
     })
+    .catch(function (error) {
+      console.log(error);
+    });
   }, [])
 
   // active button if all inputs are filled
@@ -259,7 +270,11 @@ const ACM = () => {
         </Alert>
         
         <div style={{display: 'flex', alignItems: 'center'}}>
-        <a className='acm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
+          <a
+            className='acm__confirm__link'
+            href={githubURL}
+            target='_blank'
+          >View Repository<span><img src={arrowOutwardIcon} /></span></a>
           <Button
             class='acm__confirm__button'
             text='Apply'

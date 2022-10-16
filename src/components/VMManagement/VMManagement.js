@@ -7,17 +7,19 @@ import CircularProgress from '@mui/material/CircularProgress';
 import './styles.scss';
 import Button from '../Button/Button';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
+import arrowOutwardIcon from '../../assets/images/arrow_outward.svg';
 import axios from 'axios';
 
 const VMManagement = () => {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState({});
   const [stores, setStores] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
-  const [enteredName, setEnteredName] = useState(null);
+  const [selectedParameterName, setSelectedParameterName] = useState(null);
   const [buttonActive, setButtonActive] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitOnClick, setSubmitOnClick] = useState(false);
+  const [parameterSetNameList, setParameterSetNameList] = useState({});
 
   useEffect(() => {
     // get image list
@@ -34,7 +36,7 @@ const VMManagement = () => {
     })
     .catch(function (error) {
       console.log(error);
-    })
+    });
 
     // get store list
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
@@ -50,16 +52,34 @@ const VMManagement = () => {
     })
     .catch(function (error) {
       console.log(error);
+    });
+
+    // get vm parameter set name list
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/virtual-machine/parameter_list')
+    .then(function (response) {
+      let parameter_set_name_list = [];
+      response.data.forEach(data => {
+        if(!parameter_set_name_list.includes(data.values.name)) {
+          parameter_set_name_list.push({
+            value: data.values.name,
+            label: data.values.name,
+          });
+        }
+      })
+      setParameterSetNameList(parameter_set_name_list);
+    })
+    .catch(function (error) {
+      console.log(error);
     })
   }, [])
 
   useEffect(() => {
-    if(selectedImage && selectedStore && enteredName) {
+    if(selectedImage && selectedStore && selectedParameterName) {
       setButtonActive(true);
     } else {
       setButtonActive(false);
     }
-  }, [selectedImage, selectedStore, enteredName]);
+  }, [selectedImage, selectedStore, selectedParameterName]);
 
   const handleImageChange = selectedOption => {
     setSelectedImage(selectedOption.value);
@@ -69,8 +89,8 @@ const VMManagement = () => {
     setSelectedStore(selectedOption.value);
   }
 
-  const handleNamaOnChange = event => {
-    setEnteredName(event.target.value);
+  const handleParameterNameChange = selectedOption => {
+    setSelectedParameterName(selectedOption.value);
   }
 
   const handleSubmit = () => {
@@ -78,7 +98,7 @@ const VMManagement = () => {
 
     axios({
       method: 'post',
-      url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/virtual-machine/create-vm?vm_image_name=${selectedImage}&cluster_name=${selectedStore}&vm_parameterset_name=${enteredName}`,
+      url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/virtual-machine/create-vm?vm_image_name=${selectedImage}&cluster_name=${selectedStore}&vm_parameterset_name=${selectedParameterName}`,
     })
     .then(response => {
       if(response.status === 200) {
@@ -136,12 +156,9 @@ const VMManagement = () => {
               <div>Enter VM Parameter Set Name :</div>
           </div>
           <div className='name-select'>
-            <TextField
-              className='name-select-wrapper'
-              id="standard-basic"
-              label="Name"
-              variant="standard"
-              onChange={handleNamaOnChange}
+            <Select
+              options={parameterSetNameList}
+              onChange={handleParameterNameChange}
             />
           </div>
         </div>
@@ -158,7 +175,11 @@ const VMManagement = () => {
         </Alert>
 
         <div style={{display: 'flex', alignItems: 'center'}}>
-          <a style={{visibility: submitOnClick ? 'hidden' : 'visible'}} className='vm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
+          {/* <a
+            className='acm__confirm__link'
+            href='https://www.github.com'
+            target='_blank'
+          >View Repository<span><img src={arrowOutwardIcon} /></span></a> */}
           <div style={{visibility: submitOnClick ? 'hidden' : 'visible'}}>
             <Button
               class='vm__confirm__button'

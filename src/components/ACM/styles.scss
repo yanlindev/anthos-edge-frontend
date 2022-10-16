@@ -260,6 +260,7 @@
     border-top: 1px $grey_light solid;
     bottom: 0;
     display: flex;
+    font-size: 14px;
     justify-content: space-between;
     left: 0;
     padding: 20px;
@@ -267,8 +268,16 @@
     position: absolute;
 
     &__link {
+      align-items: center;
       color: $blue;
+      display: flex;
+      font-size: 14px;
       text-decoration: none;
+
+      span img {
+        width: 24px;
+        transform: translateY(1px);
+      }
     }
 
     &__button {
