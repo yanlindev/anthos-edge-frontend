@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import LoadingBar from 'react-top-loading-bar';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import './styles.scss';
@@ -30,6 +31,7 @@ const ACM = () => {
   const [policySelectVisible, setPolicySelectVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitOnClick, setSubmitOnClick] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -141,6 +143,8 @@ const ACM = () => {
   }
 
   const handleSubmit = () => {
+    setSubmitOnClick(true);
+
     let param;
     if(activeTabIndex === 0) {
       param = `app_version=${selectedAppVersion}`
@@ -154,73 +158,23 @@ const ACM = () => {
       data: selectedTagsInObject
     })
     .then(response => {
-      setSubmitSuccess(true);
-      setButtonActive(false);
-      setTimeout(() => {
-        setSubmitSuccess(false);
-        setButtonActive(true);
-        window.location.reload(false);
-      }, 3000);
+      if(response.status === 200) {
+        setSubmitSuccess(true);
+        setButtonActive(false);
+        setSubmitOnClick(false);
+        setTimeout(() => {
+          setSubmitSuccess(false);
+          setButtonActive(true);
+          window.location.reload(false);
+        }, 3000);
+      }
     })
     .catch((error) => {
       console.log(error);
-    })
-
-    // axios({
-    //   method: 'post',
-    //   url: 'https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy',
-    //   body: selectedTagsInObject
-    // }).then(response => {
-    //   console.log(response)
-    //   if(response.status === 200) {
-    //     // fetchNodeData();
-    //   }
-    // })
-    // .catch(err => console.log(err));
-    // const data = {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]}
-    // $.ajax({
-    //   url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy`,
-    //   type: 'POST',
-    //   // app_version: 'test',
-    //   params: {
-    //     app_version: 'test'
-    //   },
-    //   data,
-    //   // dataType: 'json',
-    //   headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    //   success: function(data){
-    //     console.log("succeeded");
-    //   },
-    //   error: function(){
-    //     console.log("failed");
-    //   },
-    // });
-    // axios.post('https://edge-demo-fljjthbteq-uw.a.run.app/v1/acm/apply-policy', {
-    //   // policy_name: 'test',
-    //   body: {"continent": ["asia", "europe", "australia"],"canary": ["10", "25", "50"],"loc":[]}
-    // })
-    //   .then((response) => {
-    //   console.log(response)
-    // })
-    //   .catch((error) => {
-    //   console.log(error);
-    // })
+    });
   }
 
   const tabs = ['Update App Version', 'Update Policy']
-
-  const links = {
-    overview: [
-      [
-        ['http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732213235&to=1665753813235&panelId=2', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732261737&to=1665753861737&panelId=4'],
-        ['http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732283257&to=1665753883257&panelId=6', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732300508&to=1665753900508&panelId=10'],
-        ['http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732316626&to=1665753916626&panelId=13', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732331969&to=1665753931969&panelId=12', 'http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665732348197&to=1665753948198&panelId=14'],
-        []
-      ],
-      [],
-      []
-    ]
-  }
 
   return (
     <div className='acm'>
@@ -296,18 +250,24 @@ const ACM = () => {
       </div>
 
       <div className='acm__confirm'>
+        <div style={{visibility: submitOnClick ? 'visible' : 'hidden'}}>
+          <CircularProgress />
+        </div>
+
         <Alert severity="success" className={`acm__success ${submitSuccess ? 'is-visible' : ''}`}>
           <AlertTitle>Success</AlertTitle>
           <strong>{activeTabIndex === 0 ? 'App Version' : 'Policy'}</strong> has been updated successfully!
         </Alert>
-
+        
+        <div style={{display: 'flex', alignItems: 'center'}}>
         <a className='acm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
-        <Button
-          class='acm__confirm__button'
-          text='Apply'
-          isActive={buttonActive}
-          handleClick={handleSubmit}
-        />
+          <Button
+            class='acm__confirm__button'
+            text='Apply'
+            isActive={buttonActive}
+            handleClick={handleSubmit}
+          />
+        </div>
       </div>
     </div>
   )

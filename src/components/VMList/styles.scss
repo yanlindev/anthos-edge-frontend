@@ -1,6 +1,6 @@
 @import '../../scss/variables.scss';
 
-.fleet-list {
+.vm-list {
   background: white;
   border: $grey_light 1px solid;
   border-radius: 8px;
@@ -11,37 +11,8 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    // font-family: 'sans-medium';
     font-size: 18px;
     padding: 25px 35px;
-
-    .filter-menu {
-      background: $white;
-      border-radius: 6px;
-      border: $grey_light solid 1px;
-      box-shadow: 0 6px 15px $grey_light;
-      color: $grey;
-      display: none;
-      position: absolute;
-      z-index: 2;
-      right: -18px;
-      top: 190%;
-      max-height: 26vh;
-      overflow-y: scroll;
-
-      &__item {
-        padding: 13px 46px;
-        font-size: 14px;
-
-        &:hover {
-          background: rgba($grey_light, .3);
-        }
-      }
-
-      &--visible {
-        display: block;
-      }
-    }
 
     .btn {
       color: $blue;
@@ -118,6 +89,28 @@
     .react-loading-skeleton {
       width: 100%;
       margin: 8px 0;
+    }
+
+    .vm-status {
+      border-radius: 45px;
+      font-size: 12px;
+      padding: 6px 14px;
+
+      &.is-running {
+        background-color: rgba(#24C1E0, .5);;
+      }
+
+      &.is-stopped {
+        background-color: rgba(#FF63B8, .5);;
+      }
+
+      &.is-provisioning {
+        background-color: rgba(#A980F1, .5);;
+      }
+
+      &.is-removing {
+        background-color: rgba(#FFA726, .5);;
+      }
     }
     
     td, th {
@@ -200,19 +193,19 @@
           padding: 6px 14px;
 
           &:nth-of-type(1) {
-            background-color: rgba(#FFA726, .5);
+            background-color: rgba(#FFA726, 1);
           }
 
           &:nth-of-type(2) {
-            background-color: rgba(#24C1E0, .5);
+            background-color: rgba(#24C1E0, 1);
           }
 
           &:nth-of-type(3) {
-            background-color: rgba(#A980F1, .5);
+            background-color: rgba(#A980F1, 1);
           }
 
           &:nth-of-type(4) {
-            background-color: rgba(#FF63B8, .5);
+            background-color: rgba(#FF63B8, 1);
           }
         }
       }

@@ -21,6 +21,15 @@
     .text {
       margin-left: 10px;
     }
+
+    .label {
+      background: rgba($blue, .14);
+      border-radius: 40px;
+      color: $blue;
+      font-size: 12px;
+      margin-left: 15px;
+      padding: 3px 15px;
+    }
   }
 
   &__buttons {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import VMManagement from '../../components/VMManagement/VMManagement';
-import FleetLogs from '../../components/FleetLogs/FleetLogs';
+import VMList from '../../components/VMList';
 import Map from '../../components/Map';
 import axios from 'axios';
 
@@ -30,7 +30,7 @@ const WorkloadPage = () => {
         />
         <VMManagement />
       </div>
-      <FleetLogs />
+      <VMList />
     </div>
   )
 }

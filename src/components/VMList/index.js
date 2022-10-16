@@ -7,27 +7,26 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import './styles.scss';
 import axios from 'axios';
 
-const LongFleetList = props => {
-  const dispatch = useDispatch();
-  const [allData, setAllData] = useState([]);
+const VMList = props => {
   const { visibleClusters } = useSelector((state) => state.cluster);
+  const [VMList, setVMList] = useState([]);
 
   useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/virtual-machine/vm_list')
     .then(function (response) {
       // handle success
-      setAllData(response.data);
+      setVMList(response.data);
     })
     .catch(function (error) {
       // handle error
       console.log(error);
-    });
+    })
 
-    const fleet_list_interval = setInterval(() => {
-      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    const vm_list_interval = setInterval(() => {
+      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/virtual-machine/vm_list')
       .then(function (response) {
         // handle success
-        setAllData(response.data);
+        setVMList(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -36,50 +35,43 @@ const LongFleetList = props => {
     }, 4000);
 
     return () => {
-      clearInterval(fleet_list_interval);
+      clearInterval(vm_list_interval);
     }
   }, [])
 
-  useEffect(() => {
-    return () => {
-      dispatch(updateVisibleClusters(allData))
-    };
-  }, []);
-
   return (
-    <div className='fleet-list'>
-      <div className='fleet-list__title'>
+    <div className='vm-list'>
+      <div className='vm-list__title'>
         <div>
           <img className='icon' src={fleetInfoIcon} />
-          <div className='text'>Fleet Information</div>
+          <div className='text'>Virtual Machine List</div>
           <div className='label'>{visibleClusters.length}</div>
         </div>
       </div>
 
       <div className='table-wrapper'>
-      <table className='fleet-list__inner'>
+      <table className='vm-list__inner'>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Cluster</th>
-            <th>Version</th>
-            <th>ACM Status</th>
-            <th>Tags</th>
+            <th>ClusterName</th>
+            <th>VM Name</th>
+            <th>VM IP</th>
+            <th>VM Status</th>
+            <th>VM Image Name</th>
+            <th>VM Parameter Set Name</th>
           </tr>
         </thead>
         {
-          visibleClusters.length > 0 ?
-          visibleClusters.map((data, index) => (
-            <tbody
-              onMouseEnter={() => dispatch(updateClusterOnHover(data.name))}
-              onMouseLeave={() => dispatch(updateClusterOnHover(''))}
-            >
+          VMList.length > 0 ?
+          VMList.map((data, index) => (
+            <tbody>
               <tr>
-                <td>{data.name}</td>
-                <td>{data.node_count}</td>
-                <td>{data.version}</td>
-                <td>{data.acm_status}</td>
-                {Object.values(data.labels).map(label => <span className='tag'>{label}</span>)}
+                <td>{data.cluster_name}</td>
+                <td>{data.vm_name}</td>
+                <td>{data.vm_ip}</td>
+                <td><span className={`vm-status ${data.vm_status === 'Running' ? 'is-running' : data.vm_status === 'Stopped' ? 'is-stopped' : data.vm_status === 'Provisioning' ? 'is-provisioning' : data.vm_status === 'Removing' ? 'is-removing' : ''}`}>{data.vm_status}</span></td>
+                <td>{data.vm_image_name}</td>
+                <td>{data.vm_parameter_set_name}</td>
               </tr>
             </tbody>
           )) :
@@ -97,4 +89,4 @@ const LongFleetList = props => {
   )
 }
 
-export default LongFleetList;
+export default VMList;

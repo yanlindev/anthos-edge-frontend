@@ -60,14 +60,6 @@ const ShortFleetList = () => {
     })
   }, [])
 
-  // useEffect(() => {
-  //   let continentGroup = {};
-  //   continentList.forEach(continent => {
-  //     continentGroup[continent] = allData.filter(el => el.labels.continent == continent);
-  //   })
-  //   setAllDataByContinent({...continentGroup});
-  // }, [allData, continentList])
-
   useEffect(() => {
     if(isGrouped) {
       if(activeGroupSelector === 0) {

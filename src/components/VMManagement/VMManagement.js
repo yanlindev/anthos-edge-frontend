@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import CircularProgress from '@mui/material/CircularProgress';
 import './styles.scss';
 import Button from '../Button/Button';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
@@ -11,7 +15,10 @@ const VMManagement = () => {
   const [stores, setStores] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
+  const [enteredName, setEnteredName] = useState(null);
   const [buttonActive, setButtonActive] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitOnClick, setSubmitOnClick] = useState(false);
 
   useEffect(() => {
     // get image list
@@ -48,12 +55,12 @@ const VMManagement = () => {
   }, [])
 
   useEffect(() => {
-    if(selectedImage && selectedStore) {
+    if(selectedImage && selectedStore && enteredName) {
       setButtonActive(true);
     } else {
       setButtonActive(false);
     }
-  }, [selectedImage, selectedStore]);
+  }, [selectedImage, selectedStore, enteredName]);
 
   const handleImageChange = selectedOption => {
     setSelectedImage(selectedOption.value);
@@ -61,6 +68,34 @@ const VMManagement = () => {
 
   const handleStoreChange = selectedOption => {
     setSelectedStore(selectedOption.value);
+  }
+
+  const handleNamaOnChange = event => {
+    setEnteredName(event.target.value);
+  }
+
+  const handleSubmit = () => {
+    setSubmitOnClick(true);
+
+    axios({
+      method: 'post',
+      url: `https://edge-demo-fljjthbteq-uw.a.run.app/v1/virtual-machine/create-vm?vm_image_name=${selectedImage}&cluster_name=${selectedStore}&vm_parameterset_name=${enteredName}`,
+    })
+    .then(response => {
+      if(response.status === 200) {
+        setSubmitSuccess(true);
+        setButtonActive(false);
+        setSubmitOnClick(false);
+        setTimeout(() => {
+          setSubmitSuccess(false);
+          setButtonActive(true);
+          window.location.reload(false);
+        }, 3000);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   return (
@@ -96,15 +131,44 @@ const VMManagement = () => {
             />
           </div>
         </div>
+        <div className='vm__inner__name'>
+          <div className='name-title'>
+              <div className='name-title__line'></div>
+              <div>Enter VM Parameterset Name :</div>
+          </div>
+          <div className='name-select'>
+            <TextField
+              className='name-select-wrapper'
+              id="standard-basic"
+              label="Name"
+              variant="standard"
+              onChange={handleNamaOnChange}
+            />
+          </div>
+        </div>
       </div>
 
       <div className='vm__confirm'>
-        <a className='vm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
-        <Button
-          class='vm__confirm__button'
-          text='Apply'
-          isActive={buttonActive}
-        />
+        <div style={{visibility: submitOnClick ? 'visible' : 'hidden'}}>
+          <CircularProgress />
+        </div>
+
+        <Alert severity="success" className={`vm__success ${submitSuccess ? 'is-visible' : ''}`}>
+          <AlertTitle>Success</AlertTitle>
+          <strong>VM</strong> has been deployed successfully!
+        </Alert>
+
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          <a style={{visibility: submitOnClick ? 'hidden' : 'visible'}} className='vm__confirm__link' href='https://www.github.com' target='_blank'>View Repository</a>
+          <div style={{visibility: submitOnClick ? 'hidden' : 'visible'}}>
+            <Button
+              class='vm__confirm__button'
+              text='Apply'
+              isActive={buttonActive}
+              handleClick={handleSubmit}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )

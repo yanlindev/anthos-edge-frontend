@@ -4,19 +4,19 @@ import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import axios from 'axios';
 
 const FleetMetrics = () => {
-  const [urls, setUrls] = useState({});
-  useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/settings/fleet-monitoring')
-    .then(function (response) {
-      // handle success
-      console.log(response.data);
-      setUrls(response.data);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-  }, []);
+  // const [urls, setUrls] = useState({});
+  // useEffect(() => {
+  //   axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/settings/fleet-monitoring')
+  //   .then(function (response) {
+  //     // handle success
+  //     console.log(response.data);
+  //     setUrls(response.data);
+  //   })
+  //   .catch(function (error) {
+  //     // handle error
+  //     console.log(error);
+  //   })
+  // }, []);
 
   const grafanaLink = 'https://grafana-cr-fljjthbteq-uc.a.run.app/d-solo/c7hM3KSVz/fleet-metrics?orgId=1&from=1665626630153&to=1665636635057&panelId=';
   const links = [
@@ -63,6 +63,7 @@ const FleetMetrics = () => {
       <div className='fleet-metrics__title'>
         <img className='icon' src={fleetMetricsIcon} />
         <div className='text'>Fleet Metrics</div>
+        <div className='label'>{links.length}</div>
       </div>
       <div className='fleet-metrics__iframe-wrapper'>
         {
