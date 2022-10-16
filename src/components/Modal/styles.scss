@@ -56,6 +56,10 @@
         color: $grey;
         overflow: hidden;
 
+        .skeleton {
+          margin: 10px 0;
+        }
+
         &__header {
           background: #F7F9FC;
           color: $black;
@@ -79,7 +83,7 @@
           }
 
           .row-button {
-            background: #FE6B5E;
+            background: $grey_light;
             border-radius: 5px;
             color: $white;
             cursor: pointer;
@@ -96,7 +100,12 @@
               background: #FE6B5E;
             }
 
-            &--stopped {
+            &--terminating {
+              background: $grey_light;
+              pointer-events: none;
+            }
+
+            &--terminated {
               background: #1bbd6e;
             }
           }
