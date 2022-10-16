@@ -1,58 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
+import axios from 'axios';
 
 const FleetMetrics = () => {
-  const grafanaLink = 'https://grafana-cr-fljjthbteq-uc.a.run.app/d-solo/c7hM3KSVz/fleet-metrics?orgId=1&from=1665626630153&to=1665636635057&panelId=';
-  const links = [
-    {
-      title: 'Top CPU Utilization',
-      link: grafanaLink + '6',
-    },
-    {
-      title: 'Top Sent Traffic',
-      link: grafanaLink + '2',
-    },
-    {
-      title: 'Top Received Traffic',
-      link: grafanaLink + '4',
-    },
-    {
-      title: 'Top Read Throughput',
-      link: grafanaLink + '8',
-    },
-    {
-      title: 'Top Write Throughput',
-      link: grafanaLink + '10',
-    },
-    {
-      title: 'Customer Controller Manager Uptime',
-      link: grafanaLink + '16',
-    },
-    {
-      title: 'Top Firewall Dropped Traffic',
-      link: grafanaLink + '18',
-    },
-    {
-      title: 'Container Memory Usage',
-      link: grafanaLink + '20',
-    },
-    {
-      title: 'CPU Usage Per Container',
-      link: grafanaLink + '22',
-    },
-  ]
+  const [urls, setUrls] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/settings/fleet-monitoring')
+    .then(function (response) {
+      setUrls(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <div className='fleet-metrics'>
       <div className='fleet-metrics__title'>
         <img className='icon' src={fleetMetricsIcon} />
         <div className='text'>Fleet Metrics</div>
-        <div className='label'>{links.length}</div>
+        <div className='label'>{urls.length}</div>
       </div>
       <div className='fleet-metrics__iframe-wrapper'>
         {
-          links.map(link => <Row data={link} />)
+          urls.map((url, index) => <Row url={url} index={index} />)
         }
       </div>
     </div>
@@ -62,13 +35,25 @@ const FleetMetrics = () => {
 const Row = props => {
   const [expanded, setExpanded] = useState(true);
 
+  const titles = [
+    'Top CPU Utilization',
+    'Top Sent Traffic',
+    'Top Received Traffic',
+    'Top Read Throughput',
+    'Top Write Throughput',
+    'Customer Controller Manager Uptime',
+    'Top Firewall Dropped Traffic',
+    'Container Memory Usage',
+    'CPU Usage Per Container'
+  ];
+
   return (
     <div className={`fleet-metrics__iframe-row ${expanded ? 'is-expanded' : ''}`}>
       <div className='fleet-metrics__iframe-row__title' onClick={() => {setExpanded(!expanded)}}>
-        <div>{props.data.title}</div>
+        <div>{titles[props.index]}</div>
       </div>
       <div className='fleet-metrics__iframe-row__iframe-wrapper'>
-        <iframe src={props.data.link}></iframe>
+        <iframe src={props.url}></iframe>
       </div>
     </div>
   )
