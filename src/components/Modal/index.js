@@ -20,7 +20,6 @@ const Modal = props => {
     getDashboard(data.name);
 
     const fetch_node_data_interval = setInterval(() => {
-      console.log('oo')
       axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/nodes/?cluster_name=${data.name}&location=${data.location}`)
       .then(function (response) {
         // handle success
@@ -41,7 +40,6 @@ const Modal = props => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/nodes/?cluster_name=${data.name}&location=${data.location}`)
     .then(function (response) {
       // handle success
-      console.log(response.data)
       setNodes(response.data);
     })
     .catch(function (error) {
@@ -51,7 +49,6 @@ const Modal = props => {
   }
 
   const handleNodeClick = index => {
-    console.log(nodes[index].status)
     let postURL;
     if(nodes[index].status === 'TERMINATED') {
       postURL = `https://edge-demo-fljjthbteq-uw.a.run.app/v1/chaos/startnode/?node_zone=${nodes[index].zone}&node_name=${nodes[index].name}`
@@ -70,7 +67,6 @@ const Modal = props => {
   const getDashboard = name => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/urls/?cluster_name=${name}`)
     .then(response => {
-      console.log(response.data)
       setPOS(response.data.pages[0]);
       setDashboard(response.data.pages[1]);
     })
@@ -80,7 +76,6 @@ const Modal = props => {
   const getLogs = name => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/logs/?cluster_name=${name}&row_count=30`)
     .then(response => {
-      console.log(response.data)
       setLogs(response.data);
     })
     .catch(err => console.log(err));
@@ -149,7 +144,6 @@ const Modal = props => {
 }
 
 const NodeRow = props => {
-  console.log(props.data.status)
   const {data, index, handleNodeClick} = props;
   const [showLoading, setShowLoading] = useState(false);
   const [loaded, seLoaded] = useState(false);

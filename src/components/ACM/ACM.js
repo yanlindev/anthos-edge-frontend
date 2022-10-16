@@ -86,7 +86,6 @@ const ACM = () => {
           }
         }
       })
-      console.log(tags)
       setTags({...tags});
     })
     .catch(function (error) {

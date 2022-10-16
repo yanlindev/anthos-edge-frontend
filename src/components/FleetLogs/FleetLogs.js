@@ -69,10 +69,6 @@ const FleetLogs = () => {
     })
   }, [])
 
-  useEffect(() => {
-    console.log(tags)
-  }, [tags])
-
   return (
     <div className='acm'>
       <div className='acm__title'>

@@ -30,12 +30,6 @@ const MonitoringPage = () => {
     })
   }, [])
 
-  const handleOpenModal = index => {
-    console.log(clusterOnClick)
-    // setActiveIndex(index);
-    setModalOpen(true);
-  }
-
   useEffect(() => {
     if(clusterOnClick) {
       setModalOpen(true);

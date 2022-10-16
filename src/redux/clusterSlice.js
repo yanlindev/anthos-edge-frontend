@@ -29,9 +29,6 @@ export const clusterSlice = createSlice({
       state.clusterOnClick = JSON.parse(JSON.stringify(action.payload));
       // console.log(state.clusterOnClick, 'hi from redux')
     },
-    // incrementByAmount: (state, action) => {
-    //   state.value += action.payload
-    // },
   },
 })
 
