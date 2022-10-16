@@ -133,7 +133,7 @@ const VMManagement = () => {
         <div className='vm__inner__name'>
           <div className='name-title'>
               <div className='name-title__line'></div>
-              <div>Enter VM Parameterset Name :</div>
+              <div>Enter VM Parameter Set Name :</div>
           </div>
           <div className='name-select'>
             <TextField
