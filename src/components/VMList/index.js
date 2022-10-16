@@ -12,7 +12,7 @@ const VMList = props => {
   const [VMList, setVMList] = useState([]);
 
   useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/virtual-machine/vm_list')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/virtual-machine/vm_list')
     .then(function (response) {
       // handle success
       setVMList(response.data);
@@ -23,7 +23,7 @@ const VMList = props => {
     })
 
     const vm_list_interval = setInterval(() => {
-      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/virtual-machine/vm_list')
+      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/virtual-machine/vm_list')
       .then(function (response) {
         // handle success
         setVMList(response.data);
