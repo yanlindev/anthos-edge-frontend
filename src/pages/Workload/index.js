@@ -9,7 +9,7 @@ const WorkloadPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
     .then(function (response) {
       // handle success
       setData(response.data);

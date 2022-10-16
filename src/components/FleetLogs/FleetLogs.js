@@ -46,7 +46,7 @@ const FleetLogs = () => {
     })
 
     // get tag list
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
     .then(function (response) {
       const data = response.data;
       let tags = {};

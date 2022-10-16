@@ -8,7 +8,6 @@ import './styles.scss';
 import Button from '../Button/Button';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import axios from 'axios';
-import { selectOptions } from '@testing-library/user-event/dist/select-options';
 
 const VMManagement = () => {
   const [images, setImages] = useState([]);
@@ -38,7 +37,7 @@ const VMManagement = () => {
     })
 
     // get store list
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
     .then(function (response) {
       let store_list = [];
       response.data.forEach(data => {

@@ -13,7 +13,7 @@ const LongFleetList = props => {
   const { visibleClusters } = useSelector((state) => state.cluster);
 
   useEffect(() => {
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
     .then(function (response) {
       // handle success
       setAllData(response.data);
@@ -24,7 +24,7 @@ const LongFleetList = props => {
     });
 
     const fleet_list_interval = setInterval(() => {
-      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+      axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
       .then(function (response) {
         // handle success
         setAllData(response.data);

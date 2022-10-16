@@ -26,7 +26,7 @@ const ShortFleetList = () => {
 
   useEffect(() => {
     let arr = ['all'];
-    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/')
+    axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
     .then(function (response) {
       setAllData(response.data);
       // handle success

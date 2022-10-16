@@ -65,7 +65,7 @@ const Modal = props => {
   }
 
   const getDashboard = name => {
-    axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/testing/abm/urls/?cluster_name=${name}`)
+    axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/urls/?cluster_name=${name}`)
     .then(response => {
       setPOS(response.data.pages[0]);
       setDashboard(response.data.pages[1]);
