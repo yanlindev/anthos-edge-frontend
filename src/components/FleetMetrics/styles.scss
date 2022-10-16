@@ -8,6 +8,7 @@
 
   &__title {
     align-items: center;
+    border-bottom: 1px solid $grey_light;
     display: flex;
     // font-family: 'sans-medium';
     font-size: 18px;
@@ -22,11 +23,72 @@
     }
   }
 
+  &__buttons {
+    display: flex;
+    font-size: 11px;
+
+    &__button {
+      
+    }
+  }
+
   &__iframe-wrapper {
+    height: calc(50vh - 169px);
+    // padding: 20px 35px;
+    // width: 100%;
+    overflow-y: scroll;
+  }
+
+  &__iframe-row {
+    border-bottom: 1px solid $grey_light;
     width: 100%;
-    overflow: hidden;
-    margin-left: -48px;
-    transform: translateX(80px);
+
+    &__title {
+      border-bottom: none;
+      color: $blue;
+      cursor: pointer;
+      font-family: 'sans-medium';
+      padding: 18px 35px;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7px solid $blue;
+        left: 13px;
+        top: 21px;
+        transform: rotate(180deg);
+        transition: transform .3s ease-in-out;
+      }
+    }
+
+    &__iframe-wrapper {
+      display: none;
+      padding: 12px 30px;
+
+      iframe {
+        height: 320px;
+        width: 100%;
+      }
+    }
+
+    &.is-expanded {
+      .fleet-metrics__iframe-row__title {
+        border-bottom: 1px solid $grey_light;
+
+        &::after {
+          transform: rotate(0);
+        }
+      }
+
+      .fleet-metrics__iframe-row__iframe-wrapper {
+        display: block;
+      }
+    }
   }
 
   &__iframe {

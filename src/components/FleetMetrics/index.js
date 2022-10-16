@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Iframe from 'react-iframe';
 import './styles.scss';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
 import axios from 'axios';
@@ -17,7 +16,47 @@ const FleetMetrics = () => {
       // handle error
       console.log(error);
     })
-  }, [])
+  }, []);
+
+  const grafanaLink = 'https://grafana-cr-fljjthbteq-uc.a.run.app/d-solo/c7hM3KSVz/fleet-metrics?orgId=1&from=1665626630153&to=1665636635057&panelId=';
+  const links = [
+    {
+      title: 'Top CPU Utilization',
+      link: grafanaLink + '6',
+    },
+    {
+      title: 'Top Sent Traffic',
+      link: grafanaLink + '2',
+    },
+    {
+      title: 'Top Received Traffic',
+      link: grafanaLink + '4',
+    },
+    {
+      title: 'Top Read Throughput',
+      link: grafanaLink + '8',
+    },
+    {
+      title: 'Top Write Throughput',
+      link: grafanaLink + '10',
+    },
+    {
+      title: 'Customer Controller Manager Uptime',
+      link: grafanaLink + '16',
+    },
+    {
+      title: 'Top Firewall Dropped Traffic',
+      link: grafanaLink + '18',
+    },
+    {
+      title: 'Container Memory Usage',
+      link: grafanaLink + '20',
+    },
+    {
+      title: 'CPU Usage Per Container',
+      link: grafanaLink + '22',
+    },
+  ]
 
   return (
     <div className='fleet-metrics'>
@@ -25,14 +64,26 @@ const FleetMetrics = () => {
         <img className='icon' src={fleetMetricsIcon} />
         <div className='text'>Fleet Metrics</div>
       </div>
-      {/* {
-        urls.overview.map(columns => (
-          columns.map(url => (
-            <iframe src={url} width="450" height="200" frameborder="0"></iframe>
-          ))
-        ))
-      } */}
-      <iframe src='http://34.70.222.156:3000/d-solo/UQ6us7S4k/overview?orgId=1&from=1665653365584&to=1665674965584&theme=light&panelId=2' width="450" height="200" frameborder="0"></iframe>
+      <div className='fleet-metrics__iframe-wrapper'>
+        {
+          links.map(link => <Row data={link} />)
+        }
+      </div>
+    </div>
+  )
+}
+
+const Row = props => {
+  const [expanded, setExpanded] = useState(true);
+
+  return (
+    <div className={`fleet-metrics__iframe-row ${expanded ? 'is-expanded' : ''}`}>
+      <div className='fleet-metrics__iframe-row__title' onClick={() => {setExpanded(!expanded)}}>
+        <div>{props.data.title}</div>
+      </div>
+      <div className='fleet-metrics__iframe-row__iframe-wrapper'>
+        <iframe src={props.data.link}></iframe>
+      </div>
     </div>
   )
 }
