@@ -13,6 +13,7 @@ const Modal = props => {
   const [logs, setLogs] = useState([]);
   const [dashboard, setDashboard] = useState('');
   const [POS, setPOS] = useState('');
+  const [grafana, setGrafana] = useState('');
   
   useEffect(() => {
     fetchNodeData();
@@ -68,8 +69,9 @@ const Modal = props => {
     axios.get(`https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/urls/?cluster_name=${name}`)
     .then(response => {
       console.log(response.data)
-      setPOS(response.data.pages[0]);
-      setDashboard(response.data.pages[1]);
+      setPOS(response.data.pos);
+      setDashboard(response.data.dashboard);
+      setGrafana(response.data.grafana);
     })
     .catch(err => console.log(err));
   }
@@ -98,9 +100,10 @@ const Modal = props => {
         </div>
 
         <div className='modal__inner__content'>
+          <div className='modal__inner__content__wrapper'>
           <div className='modal__inner__content__nodes'>
             <div className='modal__inner__content__nodes__header'>Nodes</div>
-            <>
+            <div className='modal__inner__content__nodes__inner'>
             {
               nodes.length > 0 ?
               nodes.map((node, index) => (
@@ -116,16 +119,7 @@ const Modal = props => {
                 <div className='skeleton'><Skeleton count={1} height={40} /></div>
               </SkeletonTheme>
             }
-            </>
-          </div>
-          <div className='modal__inner__content__dashboard'>
-            <div className='modal__inner__content__dashboard__header'>In-Store Dashboard</div>
-            <iframe src={dashboard} frameborder="0"></iframe>
-          </div>
-
-          <div className='modal__inner__content__pos'>
-            <div className='modal__inner__content__pos__header'>POS</div>
-            <iframe src={POS}></iframe>
+            </div>
           </div>
 
           <div className='modal__inner__content__logs'>
@@ -136,6 +130,28 @@ const Modal = props => {
                   <LogRow data={row} />
                 ))
               }
+            </div>
+          </div>
+          </div>
+
+          <div className='modal__inner__content__dashboard'>
+            <div className='modal__inner__content__dashboard__header'>In-Store Dashboard</div>
+            <div className='modal__inner__content__dashboard__inner'>
+              <iframe src={dashboard} frameborder="0"></iframe>
+            </div>
+          </div>
+
+          <div className='modal__inner__content__pos'>
+            <div className='modal__inner__content__pos__header'>POS</div>
+            <div className='modal__inner__content__pos__inner'>
+              <iframe src={POS}></iframe>
+            </div>
+          </div>
+
+          <div className='modal__inner__content__grafana'>
+            <div className='modal__inner__content__grafana__header'>Grafana Dashboard</div>
+            <div className='modal__inner__content__grafana__inner'>
+              <iframe src={grafana}></iframe>
             </div>
           </div>
         </div>
