@@ -102,6 +102,10 @@ const ACM = () => {
     .catch(function (error) {
       console.log(error);
     });
+
+    return () => {
+      dispatch(updateSelectedTags([]));
+    }
   }, [])
 
   // active button if all inputs are filled
@@ -138,7 +142,7 @@ const ACM = () => {
     for (const key in selectedTags) {
       selectedTags[key].forEach(el => tags.push(el))
     }
-    dispatch(updateSelectedTags(tags))
+    dispatch(updateSelectedTags(tags));
   }
 
   const handleTabClick = index => {

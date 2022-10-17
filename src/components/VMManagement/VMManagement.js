@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import TextField from '@mui/material/TextField';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSelectedTags } from '../../redux/clusterSlice';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import './styles.scss';
 import Button from '../Button/Button';
 import fleetMetricsIcon from '../../assets/images/fleetInfo.svg';
-import arrowOutwardIcon from '../../assets/images/arrow_outward.svg';
 import axios from 'axios';
 
 const VMManagement = () => {
+  const dispatch = useDispatch();
   const [images, setImages] = useState({});
   const [stores, setStores] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
@@ -70,8 +71,12 @@ const VMManagement = () => {
     })
     .catch(function (error) {
       console.log(error);
-    })
-  }, [])
+    });
+
+    return () => {
+      dispatch(updateSelectedTags([]));
+    }
+  }, []);
 
   useEffect(() => {
     if(selectedImage && selectedStore && selectedParameterName) {
@@ -80,6 +85,12 @@ const VMManagement = () => {
       setButtonActive(false);
     }
   }, [selectedImage, selectedStore, selectedParameterName]);
+
+  useEffect(() => {
+    if(selectedStore) {
+      dispatch(updateSelectedTags([selectedStore.slice(4)]));
+    }
+  }, [selectedStore]);
 
   const handleImageChange = selectedOption => {
     setSelectedImage(selectedOption.value);
