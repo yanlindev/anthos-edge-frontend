@@ -11,7 +11,6 @@ const ControlPage = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
-  const [selectedTags, setSelectedTags] = useState({});
 
   useEffect(() => {
     axios.get('https://edge-demo-fljjthbteq-uw.a.run.app/v1/abm/')
