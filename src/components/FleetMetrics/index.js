@@ -41,7 +41,7 @@ const Row = props => {
     'Top Received Traffic',
     'Top Read Throughput',
     'Top Write Throughput',
-    'Customer Controller Manager Uptime',
+    'Cluster Controller Manager Uptime',
     'Top Firewall Dropped Traffic',
     'Container Memory Usage',
     'CPU Usage Per Container'
