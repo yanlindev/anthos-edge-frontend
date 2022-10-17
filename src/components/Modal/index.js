@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './styles.scss';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import CircularProgress from '@mui/material/CircularProgress';
 import arrow_down from '../../assets/images/arrow-down.svg';
 import close_icon from '../../assets/images/close.svg';
@@ -92,17 +91,17 @@ const Modal = props => {
             <img src={shop_icon} />
             <span>{data.name}</span>
           </div>
-          <img
-            className='modal__inner__close'
-            src={close_icon}
-            onClick={props.handleClose}
-          />
+          <div className='modal__inner__close' onClick={props.handleClose}>
+            <img
+              src={close_icon}
+            />
+          </div>
         </div>
 
         <div className='modal__inner__content'>
           <div className='modal__inner__content__wrapper'>
           <div className='modal__inner__content__nodes'>
-            <div className='modal__inner__content__nodes__header'>Nodes</div>
+            <div className='modal__inner__content__nodes__header'>Nodes <span className='modal__inner__content__nodes__header__quantity'>{nodes.length}</span></div>
             <div className='modal__inner__content__nodes__inner'>
             {
               nodes.length > 0 ?
@@ -113,22 +112,24 @@ const Modal = props => {
                   handleNodeClick={handleNodeClick}
                 />
               )) :
-              <SkeletonTheme>
-                <div className='skeleton'><Skeleton count={1} height={40} /></div>
-                <div className='skeleton'><Skeleton count={1} height={40} /></div>
-                <div className='skeleton'><Skeleton count={1} height={40} /></div>
-              </SkeletonTheme>
+              <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <CircularProgress className='loading' />
+              </div>
             }
             </div>
           </div>
 
           <div className='modal__inner__content__logs'>
-            <div className='modal__inner__content__logs__header'>Real-time Application Logs</div>
+            <div className='modal__inner__content__logs__header'>Real-time Application Logs <span className='modal__inner__content__logs__header__quantity'>{logs.length}</span></div>
             <div className='modal__inner__content__logs__inner'>
               {
+                logs.length ?
                 logs.map(row => (
                   <LogRow data={row} />
-                ))
+                )) :
+                <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                  <CircularProgress className='loading' />
+                </div>
               }
             </div>
           </div>
@@ -180,9 +181,9 @@ const NodeRow = props => {
 
   return (
     <div className={`modal__inner__content__nodes__row`} key={index}>
-          <div>{data.name}</div>
-          <div>{data.ip}</div>
-          <div>{data.instance_type}</div>
+          <div className='name'>{data.name}</div>
+          <div className='ip'>{data.ip}</div>
+          <div className='instance-type'>{data.instance_type}</div>
           <div
             style={{display: showLoading ? 'none' : 'block'}}
             className={`row-button ${data.status === 'RUNNING' ? 'row-button--running' : data.status === 'STOPPING' ? 'row-button--terminating' : data.status === 'TERMINATED' ? 'row-button--terminated' : ''}`}
