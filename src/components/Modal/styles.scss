@@ -298,39 +298,6 @@
         }
       }
 
-      // dashboard
-      &__dashboard {
-        border-top: $grey_light 1px solid;
-        // border-radius: 8px;
-        margin-top: 40px;
-        padding-top: 40px;
-        // overflow: hidden;
-
-        &__header {
-          background-color: $white;
-          border-bottom: 1px solid $grey_light;
-          border-radius: 4px;
-          border-left: 4.5px solid $blue;
-          font-family: 'sans-medium';
-          font-size: 16px;
-          padding: 16px;
-        }
-
-        &__inner {
-          border-radius: 6px;
-          overflow: hidden;
-          box-shadow: 0 2px 30px $grey_light;
-          background-color: $white;
-          margin-top: 15px;
-          width: 100%;
-
-          iframe {
-            height: 640px;
-            width: 100%;
-          }
-        }
-      }
-
       // POS
       &__pos {
         // background-color: $white;

@@ -135,15 +135,8 @@ const Modal = props => {
           </div>
           </div>
 
-          <div className='modal__inner__content__dashboard'>
-            <div className='modal__inner__content__dashboard__header'>In-Store Dashboard</div>
-            <div className='modal__inner__content__dashboard__inner'>
-              <iframe src={dashboard} frameborder="0"></iframe>
-            </div>
-          </div>
-
           <div className='modal__inner__content__pos'>
-            <div className='modal__inner__content__pos__header'>POS</div>
+            <div className='modal__inner__content__pos__header'>In Cluster Workload</div>
             <div className='modal__inner__content__pos__inner'>
               <iframe src={POS}></iframe>
             </div>
